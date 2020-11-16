@@ -1,0 +1,92 @@
+
+<div class="container-fluid">
+<app-header-view></app-header-view>
+
+<div class="container-fluid fragebogenContainer">
+
+  <div class="formBlock">
+    <p class="h4 mb-4">Interviewer</p>
+    <div class="form-row mb-4">
+      <div class="col">
+        <!-- first name -->
+        <input type="text" #interviewerFirstName class="form-control" placeholder="Name">
+      </div>
+      <div class="col">
+        <!-- last name -->
+        <input type="text" #interviewerLastName class="form-control" placeholder="Nachname">
+      </div>
+    </div>
+    <div class="form-row mb-4">
+      <p class="h6 mb-4">Interview-Titel</p>
+      <input type="text" #titel class="form-control" placeholder="Titel">
+    </div>
+
+ </div>
+
+<div class="formBlock">
+
+  <p class="h4 mb-4">Teilnehmer</p>
+  <div class="form-row mb-4">
+  <!-- age and gender-->
+  <p class="h6 mb-4">Alter</p>
+  <input type="number" class="form-control mb-4" #age placeholder="Alter">
+  </div>
+
+  <p class="h6 mb-4">Geschlecht</p>
+  <div class="form-row mb-4 checkBoxRow">
+    <!-- Default inline 1-->
+    <div class="custom-control custom-radio custom-control-inline">
+      <input type="radio" class="custom-control-input" #male id="defaultInline1" name="inlineDefaultRadiosExample" mdbInput>
+      <label class="custom-control-label" for="defaultInline1">M</label>
+    </div>
+
+      <!-- Default inline 2-->
+    <div class="custom-control custom-radio custom-control-inline">
+      <input type="radio" class="custom-control-input" #female id="defaultInline2" name="inlineDefaultRadiosExample" mdbInput>
+      <label class="custom-control-label" for="defaultInline2">W</label>
+    </div>
+
+    <!-- Default inline 3-->
+    <div class="custom-control custom-radio custom-control-inline">
+      <input type="radio" class="custom-control-input" #diverse id="defaultInline3" name="inlineDefaultRadiosExample" mdbInput>
+      <label class="custom-control-label" for="defaultInline3">D</label>
+    </div>
+  </div>
+</div>
+
+<div class="formBlock">
+  <p class="h4 mb-4">Welche Heuristiken sollen befragt werden?</p>
+
+  <!-- Default inline 1-->
+<mdb-checkbox [inline]="false" [default]="true" #heu1>Nachvollziehbarkeit und Feedback zur
+  Aufgabenbearbeitung
+  </mdb-checkbox>
+
+<!-- Default inline 2-->
+<mdb-checkbox [inline]="false" [default]="true" #heu2>Von der Flexibilität der Vorgehensweisen zur
+  gemeinsamen Weiterentwicklung des Systems
+  </mdb-checkbox>
+
+<!-- Default inline 3-->
+<mdb-checkbox [inline]="false" [default]="true" #heu3> Kommunikationsunterstützung für Aufgabenbearbeitung
+  und sozialen Austausch</mdb-checkbox>
+
+<!-- Default inline 2-->
+<mdb-checkbox [inline]="false" [default]="true" #heu4>Aufgabengebundener Informationsaustausch für die
+  Erleichterung geistiger Arbeit
+  </mdb-checkbox>
+
+<!-- Default inline 3-->
+<mdb-checkbox [inline]="false" [default]="true" #heu5>Aufgabenorganisation für die Balance zwischen
+  Anstrengung und erlebtem Erfolg </mdb-checkbox>
+
+</div>
+
+<button type="button" class="btn btn-primary btn-lg" id="formButton" (click)= "onWeiterClick(interviewerFirstName, interviewerLastName
+,titel, age, male, female, diverse, heu1, heu2, heu3, heu4, heu5);">Weiter</button>
+
+</div>
+
+<app-footer-view></app-footer-view>
+</div>
+

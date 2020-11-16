@@ -1,0 +1,29 @@
+@import "../../../node_modules/bootstrap-scss/";
+
+.fragebogenContainer{
+  background: rgb(255, 255, 255, 0.9);
+  height: 85vh;
+  margin:10px 0px 10px 0px;
+  padding: 10px;
+  overflow: auto;
+  border-style: solid;
+}
+
+#formButton{
+  margin:15px 0px 0px 5px;
+}
+
+.checkBoxRow{
+  margin: 2px;
+  padding: 2px;
+}
+
+.formBlock{
+  margin: 20px 5px 20px 5px;
+  padding: 10px;
+  border-style: solid;
+  border-width: thin;
+}
+
+
+

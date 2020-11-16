@@ -28,7 +28,8 @@ app.post('/frageboegen', (req, res) => {
     (new Fragebogen({
         'titel': req.body.titel,
         'heuristiken': req.body.heuristiken,
-        'interviewerName': req.body.interviewerName,
+        'interviewerFirstName': req.body.interviewerFirstName,
+        'interviewerLastName': req.body.interviewerLastName,
         'teilnehmer': req.body.teilnehmer
     }))
         .save()
@@ -67,10 +68,9 @@ app.delete('/frageboegen/:fragebogenId', (req, res) => {
             .catch((error) => console.log(error))
     }
 
-    const fragebogen = Fragebogen.findByIdAndDelete(req.params.fragebogenId)
-                        .then(frageboegen => res.send(frageboegen))
-                        .catch((error) => console.log(error))
-                        res.send(list)
+    Fragebogen.findByIdAndDelete(req.params.fragebogenId)
+                .then((fragebogen) => res.send(deleteHeuristiken(fragebogen)))
+                .catch((error) => console.log(error))
 })
 
 /******************************************************/
@@ -91,7 +91,7 @@ app.get('/frageboegen/:fragebogenId/heuristiken', (req, res) => {
 //Neue Heuristik zu Fragebogen hinzufügen
 app.post('/frageboegen/:fragebogenId/heuristiken', (req, res) => {
     (new HeuristikTest({
-        '_heuristikId:': req.body._heuristikId,
+        '_heuristikId': req.body._heuristikId,
         '_fragebogenId': req.params.fragebogenId,
         'fragen': req.body.fragen
     }))

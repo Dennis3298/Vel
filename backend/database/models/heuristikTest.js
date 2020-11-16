@@ -13,14 +13,16 @@ const FrageSchema = new mongoose.Schema({
 
 const HeuristikTestSchema = new mongoose.Schema({
     _heuristikId: {
-        type: String
+        type: String,
+        required: true
     },
     _fragebogenId: {
         type: mongoose.Types.ObjectId,
         required:true
     },
     fragen: {
-        type: [FrageSchema]
+        type: [FrageSchema],
+        required: true
     }
 })
 

@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 const TeilnehmerSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: false
-    },
     age:{
         type: Number,
         required: true
@@ -24,11 +20,18 @@ const FragebogenSchema = new mongoose.Schema({
         type: [String],
         required: true
     },
-    interviewerName: {
+    interviewerFirstName: {
         type: String,
         required: true
     },
-    teilnehmer: [TeilnehmerSchema]
+    interviewerLastName: {
+        type: String,
+        required: true
+    },
+    teilnehmer: [TeilnehmerSchema],
+    datum: {
+        type: Date
+    }
 })
 
 const Fragebogen = mongoose.model("Fragebogen", FragebogenSchema)
