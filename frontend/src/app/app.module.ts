@@ -9,6 +9,7 @@ import { MenuComponent } from './menu/menu.component';
 import { HeaderViewComponent } from './header-view/header-view.component';
 import { FooterViewComponent } from './footer-view/footer-view.component';
 import { FragebogenComponent } from './fragebogen/fragebogen.component';
+import { HeuristikComponent } from './heuristik/heuristik.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { FragebogenComponent } from './fragebogen/fragebogen.component';
     HeaderViewComponent,
     FooterViewComponent,
     FragebogenComponent,
+    HeuristikComponent,
   ],
   imports: [
     BrowserModule,

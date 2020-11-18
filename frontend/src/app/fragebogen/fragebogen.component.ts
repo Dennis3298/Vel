@@ -43,6 +43,7 @@ export class FragebogenComponent implements OnInit {
 
       this.fragebogen.teilnehmer = this.teilnehmer
 
+      this.fragebogen.heuristiken.splice(0)
       this.checkForHeuristik(heu1, "HEU1")
       this.checkForHeuristik(heu2, "HEU2")
       this.checkForHeuristik(heu3, "HEU3")
