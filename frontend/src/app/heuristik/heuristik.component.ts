@@ -43,37 +43,69 @@ export class HeuristikComponent implements OnInit {
 
   fragebogen: Fragebogen
 
+  fragenA: [String]
 
   constructor() {
 
+    //benötigte Objekte initialisieren
     this.fragebogen = new Fragebogen
     this.fragebogen = history.state.fragebogen
-
     this.heuristikList = new Array
     this.heuristikList.splice(0)
+
+    this.fragenA = [new String]
+    this.fragenA.splice(0)
+    this.fragenA.push("Das ist Frage A")
+    this.fragenA.push("Das ist Frage B")
+    this.fragenA.push("Das ist Frage C")
+
+    //Bestimmen welche Heuristiken displayed werden
+    this.checkForHeuristiken()
+
+    console.log(this.heuristikList)
+    console.log(this.fragebogen)
+  }
+
+
+  //Methode zum überprüfen, welche Kategorie bzw. Fragen gerendered werden sollen
+  checkForHeuristiken(){
+
+
 
     this.divCounter = 0
 
     if(this.fragebogen.heuristiken.includes("HEU1")){
       //Fragen für Heuristik A
       this.HeuristikA = new Heuristik
+
       this.fragenHeuristikA = [new Frage]
+      this.fragenHeuristikA.splice(0)
+
+      //Fragen-Array-Objekt von HeuristikA setzen, sonst undefined
       this.HeuristikA.fragen = this.fragenHeuristikA
-
       this.HeuristikA._heuristikId = "HEU1"
-      this.frageHeuristikA = new Frage
 
-      this.frageHeuristikA._frageId = "F1"
-      this.frageHeuristikA.frage = "Frage: Das ist Frage A"
-      this.HeuristikA.fragen.push(this.frageHeuristikA)
+      let idSuffix: number = 1
+      this.fragenA.forEach(element => {
+          this.frageHeuristikA = new Frage
+          this.frageHeuristikA.frage = element
+          this.frageHeuristikA._frageId = "F" + idSuffix
+          idSuffix++
+          this.HeuristikA.fragen.push(this.frageHeuristikA)
+      });
 
-      this.frageHeuristikA._frageId = "F2"
-      this.frageHeuristikA.frage = "Frage: Das ist Frage B"
-      this.HeuristikA.fragen.push(this.frageHeuristikA)
+      // this.frageHeuristikA._frageId = "F1"
+      // this.frageHeuristikA.frage = "Frage: Das ist Frage A"
+      // this.HeuristikA.fragen.push(this.frageHeuristikA)
 
-      this.frageHeuristikA._frageId = "F3"
-      this.frageHeuristikA.frage = "Frage: Das ist Frage C"
-      this.HeuristikA.fragen.push(this.frageHeuristikA)
+      // this.frageHeuristikA = new Frage
+      // this.frageHeuristikA._frageId = "F2"
+      // this.frageHeuristikA.frage = "Frage: Das ist Frage B"
+      // this.HeuristikA.fragen.push(this.frageHeuristikA)
+
+      // this.frageHeuristikA._frageId = "F3"
+      // this.frageHeuristikA.frage = "Frage: Das ist Frage C"
+      // this.HeuristikA.fragen.push(this.frageHeuristikA)
 
       this.heuristikList.push(this.HeuristikA)
     }
@@ -173,10 +205,6 @@ export class HeuristikComponent implements OnInit {
       this.heuristikList.push(this.HeuristikE)
     }
 
-    //Bestimmen welche Heuristiken displayed werden
-
-    console.log(this.heuristikList)
-    console.log(this.fragebogen)
   }
 
 
