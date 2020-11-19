@@ -1,10 +1,7 @@
-class Frage{
-  _frageId: String
-  antwort: number
-}
+import Frage from "./frage"
 
 export default class Heuristik{
   _heuristikId: String
   _fragebogenId: String
-  fragen: Frage
+  fragen: [Frage]
 }

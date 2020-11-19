@@ -16,9 +16,9 @@ export class FragebogenComponent implements OnInit {
   private fragebogen: Fragebogen
 
   constructor(private fragebogenService: FragebogenService, private router: Router) {
-    this.fragebogen = new Fragebogen()
+    this.fragebogen = new Fragebogen
     this.fragebogen.heuristiken = [new String]
-    this.teilnehmer = new Teilnehmer()
+    this.teilnehmer = new Teilnehmer
 
   }
 
@@ -51,9 +51,10 @@ export class FragebogenComponent implements OnInit {
       this.checkForHeuristik(heu5, "HEU5")
 
       console.log(this.fragebogen)
+      console.log('Länge:'+this.fragebogen.heuristiken.length)
 
       this.fragebogenService.createFragebogen(this.fragebogen)
-      .subscribe((fragebogen: Fragebogen) => this.router.navigate(['/frageboegen', fragebogen._id]))
+      .subscribe((fragebogen: Fragebogen) => this.router.navigate(['/frageboegen', fragebogen._id], {state: {fragebogen} }))
   }
 
   checkForHeuristik(isHeuristik, heuristikId){
@@ -63,6 +64,7 @@ export class FragebogenComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
 }

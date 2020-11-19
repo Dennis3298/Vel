@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import Fragebogen from '../Models/fragebogen';
+import Heuristik from '../Models/heuristik';
+import Frage from '../Models/frage';
+import Antwort from '../Models/antwort';
+
 
 @Component({
   selector: 'app-heuristik',
@@ -9,55 +14,171 @@ export class HeuristikComponent implements OnInit {
 
   divCounter: number
 
-  fragenHeuristikA: [String]
-  fragenHeuristikB: [String]
-  fragenHeuristikC: [String]
-  fragenHeuristikD: [String]
-  fragenHeuristikE: [String]
+  heuristikList: Array<Heuristik>
+
+  HeuristikA: Heuristik
+  HeuristikB: Heuristik
+  HeuristikC: Heuristik
+  HeuristikD: Heuristik
+  HeuristikE: Heuristik
+
+  fragenHeuristikA: [Frage]
+  frageHeuristikA: Frage
+  fragenHeuristikB: [Frage]
+  frageHeuristikB: Frage
+  fragenHeuristikC: [Frage]
+  frageHeuristikC: Frage
+  fragenHeuristikD: [Frage]
+  frageHeuristikD: Frage
+  fragenHeuristikE: [Frage]
+  frageHeuristikE: Frage
+
+
+  antworten: [Antwort]
+  antwortenHeuristikA: Antwort
+  antwortenHeuristikB: Antwort
+  antwortenHeuristikC: Antwort
+  antwortenHeuristikD: Antwort
+  antwortenHeuristikE: Antwort
+
+  fragebogen: Fragebogen
+
 
   constructor() {
 
+    this.fragebogen = new Fragebogen
+    this.fragebogen = history.state.fragebogen
+
+    this.heuristikList = new Array
+    this.heuristikList.splice(0)
+
     this.divCounter = 0
-    this.fragenHeuristikA = [new String]
-    this.fragenHeuristikB = [new String]
-    this.fragenHeuristikC = [new String]
-    this.fragenHeuristikD = [new String]
-    this.fragenHeuristikE = [new String]
 
-    //Warum auch immer wird auf Index 0 ein Element mit leerem String gesetzt, folgende Zeilen löschen dieses
-    this.fragenHeuristikA.splice(0)
-    this.fragenHeuristikB.splice(0)
-    this.fragenHeuristikC.splice(0)
-    this.fragenHeuristikD.splice(0)
-    this.fragenHeuristikE.splice(0)
+    if(this.fragebogen.heuristiken.includes("HEU1")){
+      //Fragen für Heuristik A
+      this.HeuristikA = new Heuristik
+      this.fragenHeuristikA = [new Frage]
+      this.HeuristikA.fragen = this.fragenHeuristikA
 
-    //Fragen für Heuristik A
-    this.fragenHeuristikA.push("Frage: Das ist Frage A")
-    this.fragenHeuristikA.push("Frage: Das ist Frage B")
-    this.fragenHeuristikA.push("Frage: Das ist Frage C")
+      this.HeuristikA._heuristikId = "HEU1"
+      this.frageHeuristikA = new Frage
 
-    //Fragen für Heuristik B
-    this.fragenHeuristikB.push("Frage: Das ist Frage A")
-    this.fragenHeuristikB.push("Frage: Das ist Frage B")
-    this.fragenHeuristikB.push("Frage: Das ist Frage C")
+      this.frageHeuristikA._frageId = "F1"
+      this.frageHeuristikA.frage = "Frage: Das ist Frage A"
+      this.HeuristikA.fragen.push(this.frageHeuristikA)
 
-    //Fragen für Heuristik C
-    this.fragenHeuristikC.push("Frage: Das ist Frage A")
-    this.fragenHeuristikC.push("Frage: Das ist Frage B")
-    this.fragenHeuristikC.push("Frage: Das ist Frage C")
+      this.frageHeuristikA._frageId = "F2"
+      this.frageHeuristikA.frage = "Frage: Das ist Frage B"
+      this.HeuristikA.fragen.push(this.frageHeuristikA)
 
-    //Fragen für Heuristik D
-    this.fragenHeuristikD.push("Frage: Das ist Frage A")
-    this.fragenHeuristikD.push("Frage: Das ist Frage B")
-    this.fragenHeuristikD.push("Frage: Das ist Frage C")
+      this.frageHeuristikA._frageId = "F3"
+      this.frageHeuristikA.frage = "Frage: Das ist Frage C"
+      this.HeuristikA.fragen.push(this.frageHeuristikA)
 
-    //Fragen für Heuristik E
-    this.fragenHeuristikE.push("Frage: Das ist Frage A")
-    this.fragenHeuristikE.push("Frage: Das ist Frage B")
-    this.fragenHeuristikE.push("Frage: Das ist Frage C")
+      this.heuristikList.push(this.HeuristikA)
+    }
 
-    console.log(this.fragenHeuristikA)
+    if(this.fragebogen.heuristiken.includes("HEU2")){
+      //Fragen für Heuristik B
+      this.HeuristikB = new Heuristik
+      this.fragenHeuristikB = [new Frage]
+      this.HeuristikB.fragen = this.fragenHeuristikB
+
+      this.HeuristikB._heuristikId = "HEU2"
+      this.frageHeuristikB = new Frage
+
+      this.frageHeuristikB._frageId = "F1"
+      this.frageHeuristikB.frage = "Frage: Das ist Frage A"
+      this.HeuristikB.fragen.push(this.frageHeuristikB)
+
+      this.frageHeuristikB._frageId = "F2"
+      this.frageHeuristikB.frage = "Frage: Das ist Frage B"
+      this.HeuristikB.fragen.push(this.frageHeuristikB)
+
+      this.frageHeuristikB._frageId = "F3"
+      this.frageHeuristikB.frage = "Frage: Das ist Frage C"
+      this.HeuristikB.fragen.push(this.frageHeuristikB)
+
+      this.heuristikList.push(this.HeuristikB)
+    }
+
+    if(this.fragebogen.heuristiken.includes("HEU3")){
+      //Fragen für Heuristik C
+      this.HeuristikC = new Heuristik
+      this.fragenHeuristikC = [new Frage]
+      this.HeuristikC.fragen = this.fragenHeuristikC
+
+      this.HeuristikC._heuristikId = "HEU3"
+      this.frageHeuristikC = new Frage
+
+      this.frageHeuristikC._frageId = "F1"
+      this.frageHeuristikC.frage = "Frage: Das ist Frage A"
+      this.HeuristikC.fragen.push(this.frageHeuristikC)
+
+      this.frageHeuristikC._frageId = "F2"
+      this.frageHeuristikC.frage = "Frage: Das ist Frage B"
+      this.HeuristikC.fragen.push(this.frageHeuristikC)
+
+      this.frageHeuristikC._frageId = "F3"
+      this.frageHeuristikC.frage = "Frage: Das ist Frage C"
+      this.HeuristikC.fragen.push(this.frageHeuristikC)
+
+      this.heuristikList.push(this.HeuristikC)
+    }
+
+    if(this.fragebogen.heuristiken.includes("HEU4")){
+      this.HeuristikD = new Heuristik
+      this.fragenHeuristikD = [new Frage]
+      this.HeuristikD.fragen = this.fragenHeuristikD
+
+      this.HeuristikD._heuristikId = "HEU4"
+      this.frageHeuristikD = new Frage
+
+      this.frageHeuristikD._frageId = "F1"
+      this.frageHeuristikD.frage = "Frage: Das ist Frage A"
+      this.HeuristikD.fragen.push(this.frageHeuristikD)
+
+      this.frageHeuristikD._frageId = "F2"
+      this.frageHeuristikD.frage = "Frage: Das ist Frage B"
+      this.HeuristikD.fragen.push(this.frageHeuristikD)
+
+      this.frageHeuristikD._frageId = "F3"
+      this.frageHeuristikD.frage = "Frage: Das ist Frage C"
+      this.HeuristikD.fragen.push(this.frageHeuristikD)
+
+      this.heuristikList.push(this.HeuristikD)
+    }
+
+    if(this.fragebogen.heuristiken.includes("HEU5")){
+      //Fragen für Heuristik E
+      this.HeuristikE = new Heuristik
+      this.fragenHeuristikE = [new Frage]
+      this.HeuristikE.fragen = this.fragenHeuristikE
+
+      this.HeuristikE._heuristikId = "HEU5"
+      this.frageHeuristikE = new Frage
+
+      this.frageHeuristikE._frageId = "F1"
+      this.frageHeuristikE.frage = "Frage: Das ist Frage A"
+      this.HeuristikE.fragen.push(this.frageHeuristikE)
+
+      this.frageHeuristikE._frageId = "F2"
+      this.frageHeuristikE.frage = "Frage: Das ist Frage B"
+      this.HeuristikE.fragen.push(this.frageHeuristikE)
+
+      this.frageHeuristikE._frageId = "F3"
+      this.frageHeuristikE.frage = "Frage: Das ist Frage C"
+      this.HeuristikE.fragen.push(this.frageHeuristikE)
+
+      this.heuristikList.push(this.HeuristikE)
+    }
+
+    //Bestimmen welche Heuristiken displayed werden
+
+    console.log(this.heuristikList)
+    console.log(this.fragebogen)
   }
+
 
 
   ngOnInit(): void {
@@ -66,11 +187,11 @@ export class HeuristikComponent implements OnInit {
 
 
   onButtonPrevClick(){
-    (this.divCounter -= 1)% 5
+    (this.divCounter -= 1)% this.fragebogen.heuristiken.length
   }
 
   onButtonNextClick(){
-    (this.divCounter += 1)% 5
+    (this.divCounter += 1)% this.fragebogen.heuristiken.length
   }
 
   onButtonSaveClick(){

@@ -2,17 +2,15 @@
   <app-header-view></app-header-view>
   <div class="heuristikContainer">
     <div class="row">
-      <div id="heuristik" class="container-fluid">
+      <div id="heuristik" class="container-fluid" *ngFor="let heuristik of heuristikList">
+              <div class="content container-fluid" *ngFor="let fragen of heuristik.fragen">
+                <label class="text-center category">{{fragen.frage}}</label>
 
-        <div *ngIf="divCounter == 0" #heu1>
-          <p class="h4 mb-4 text-center">Nachvollziehbarkeit und Feedback zur Aufgabenbearbeitung</p>
-              <div class="content container-fluid" *ngFor="let frage of fragenHeuristikA">
-                <label class="text-center category">{{frage}}</label>
                 <!-- *******************https://codepen.io/Buttonpresser/pen/qiuIx***********************-->
 
                   <ul class='likert'>
                     <li>
-                      <input type="radio" class="likertValue" value=1>
+                      <input type="radio" class="likertValue" value=1 [value]="1 ? fragen.antwort : 1">
                       <label>1</label>
                     </li>
                     <li>
@@ -40,159 +38,6 @@
                 <!-- ************************************************* -->
 
               </div>
-        </div>
-
-        <div *ngIf="divCounter == 1" #heu2>
-          <p class="h4 mb-4 text-center">Von der Flexibilität der Vorgehensweisen zur gemeinsamen Weiterentwicklung des Systems</p>
-          <div class="content container-fluid" *ngFor="let frage of fragenHeuristikA">
-            <label class="text-center category">{{frage}}</label>
-            <!-- *******************https://codepen.io/Buttonpresser/pen/qiuIx***********************-->
-
-              <ul class='likert'>
-                <li>
-                  <input type="radio" class="likertValue" value=1>
-                  <label>1</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=2>
-                  <label>2</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=3>
-                  <label>3</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=4>
-                  <label>4</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=5>
-                  <label>5</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=6>
-                  <label>keine Antwort</label>
-                </li>
-              </ul>
-
-            <!-- ************************************************* -->
-
-          </div>
-        </div>
-
-        <div *ngIf="divCounter == 2" #heu3>
-          <p class="h4 mb-4 text-center">Kommunikationsunterstützung für Aufgabenbearbeitung und sozialen Austausch</p>
-          <div class="content container-fluid" *ngFor="let frage of fragenHeuristikA">
-            <label class="text-center category">{{frage}}</label>
-            <!-- *******************https://codepen.io/Buttonpresser/pen/qiuIx***********************-->
-
-              <ul class='likert'>
-                <li>
-                  <input type="radio" class="likertValue" value=1>
-                  <label>1</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=2>
-                  <label>2</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=3>
-                  <label>3</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=4>
-                  <label>4</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=5>
-                  <label>5</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=6>
-                  <label>keine Antwort</label>
-                </li>
-              </ul>
-
-            <!-- ************************************************* -->
-
-          </div>
-        </div>
-
-        <div *ngIf="divCounter == 3" #heu4>
-          <p class="h4 mb-4 text-center">Aufgabengebundener Informationsaustausch für die Erleichterung geistiger Arbeit</p>
-          <div class="content container-fluid" *ngFor="let frage of fragenHeuristikA">
-            <label class="text-center category">{{frage}}</label>
-            <!-- *******************https://codepen.io/Buttonpresser/pen/qiuIx***********************-->
-
-              <ul class='likert'>
-                <li>
-                  <input type="radio" class="likertValue" value=1>
-                  <label>1</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=2>
-                  <label>2</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=3>
-                  <label>3</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=4>
-                  <label>4</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=5>
-                  <label>5</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=6>
-                  <label>keine Antwort</label>
-                </li>
-              </ul>
-
-            <!-- ************************************************* -->
-
-          </div>
-        </div>
-
-        <div *ngIf="divCounter == 4" #heu5>
-          <p class="h4 mb-4 text-center">Aufgabenorganisation für die Balance zwischen Anstrengung und erlebtem Erfolg</p>
-          <div class="content container-fluid" *ngFor="let frage of fragenHeuristikA">
-            <label class="text-center category">{{frage}}</label>
-            <!-- *******************https://codepen.io/Buttonpresser/pen/qiuIx***********************-->
-
-              <ul class='likert'>
-                <li>
-                  <input type="radio" class="likertValue" value=1>
-                  <label>1</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=2>
-                  <label>2</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=3>
-                  <label>3</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=4>
-                  <label>4</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=5>
-                  <label>5</label>
-                </li>
-                <li>
-                  <input type="radio" class="likertValue" value=6>
-                  <label>keine Antwort</label>
-                </li>
-              </ul>
-
-            <!-- ************************************************* -->
-
-          </div>
-        </div>
 
       </div>
     </div>
