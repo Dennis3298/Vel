@@ -1,65 +1,74 @@
 .heuristikContainer{
   background: rgb(255, 255, 255, 0.9);
   height: 85vh;
-  margin:10px 0px 10px 0px;
-  padding: 10px;
-  overflow: auto;
+  overflow-x: hidden;
   border-style: solid;
+  margin: 10px 0px 10px 0px
 }
 
 #heuristik{
-  margin: 20px 5px 20px 5px;
+  margin: 10px 2px 10px 2px;
+  padding: 5px;
+}
+
+.content{
+  //height: 40vh;
+  margin: 10px;
   padding: 10px;
   border-style: solid;
   border-width: thin;
 }
 
-.content{
-  height: 40vh;
-  background: rgba(117, 115, 115, 0.9);
+#titel{
+  margin: 10px 0px 0px 10px;
 }
 
-.category{
-  margin: 4% 0px 0px 0px;
+.tableAddButton{
+  margin: 10px 10px 10px 0px;
+  max-width: 50%;
+  min-width: 50%;
 }
 
-.likerValue{
-  display:flex;
+.tableRemoveButton{
+  margin: 10px 10px 10px 0px;
+  max-width: 50%;
+  min-width: 50%;
 }
 
-.likert {
-  list-style:none;
-  display:flex;
+table, th, td {
+  border: 1px solid black;
+}
+table {
+  width: 100%;
+  margin: 10px 0px 10px 0px;
+  // border-spacing: 5px;
+  // padding: 5px;
+  // border-spacing:3px 5px;
 }
 
-// ***********https://codepen.io/Buttonpresser/pen/qiuIx******************
-
-// form .likert:last-of-type {border-bottom:0;}
-// form .likert:before {
-//   content: '';
-//   position:relative;
-//   top:9px;
-//   left:8.5%;
-//   display:block;
-//   background-color:#efefef;
-//   height:4px;
-//   width:78%;
-// }
-// form .likert li {
-//   display:inline-block;
-//   width:19%;
-//   text-align:center;
-//   vertical-align: top;
-// }
-// form .likert li input[type=radio] {
-//   display:block;
-//   position:relative;
-//   top:0;
-//   left:50%;
-//   margin-left:-6px;
-
-// }
-// form .likert li label {width:100%;}
+#radioButtonBlock{
+  cursor: pointer;
+  display: block;
+  text-align: center;
+}
 
 
-//********************************************
+th, td{
+  text-align: center;
+}
+
+th{
+  background-color: rgb(102, 196, 251);
+}
+
+#notizTextFeld{
+  background-color: rgb(255, 255, 255);
+}
+
+#frage{
+  margin: 8px;
+}
+
+#saveButton{
+  margin: 0px 15px 15px 15px;
+}

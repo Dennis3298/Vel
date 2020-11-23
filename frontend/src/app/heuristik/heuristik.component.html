@@ -1,52 +1,40 @@
 <div class="container-fluid">
   <app-header-view></app-header-view>
   <div class="heuristikContainer">
-    <div class="row">
-      <div id="heuristik" class="container-fluid" *ngFor="let heuristik of heuristikList">
-              <div class="content container-fluid" *ngFor="let fragen of heuristik.fragen">
-                <label class="text-center category">{{fragen.frage}}</label>
-
-                <!-- *******************https://codepen.io/Buttonpresser/pen/qiuIx***********************-->
-
-                  <ul class='likert'>
-                    <li>
-                      <input type="radio" class="likertValue" value=1 [value]="1 ? fragen.antwort : 1">
-                      <label>1</label>
-                    </li>
-                    <li>
-                      <input type="radio" class="likertValue" value=2>
-                      <label>2</label>
-                    </li>
-                    <li>
-                      <input type="radio" class="likertValue" value=3>
-                      <label>3</label>
-                    </li>
-                    <li>
-                      <input type="radio" class="likertValue" value=4>
-                      <label>4</label>
-                    </li>
-                    <li>
-                      <input type="radio" class="likertValue" value=5>
-                      <label>5</label>
-                    </li>
-                    <li>
-                      <input type="radio" class="likertValue" value=6>
-                      <label>keine Antwort</label>
-                    </li>
-                  </ul>
-
-                <!-- ************************************************* -->
-
+    <div class="form-row">
+      <div id="heuristik" class="container-fluid" *ngFor="let heuristik of heuristikList;let i = index">
+            <h4 id="titel">{{heuristik.titel }}</h4>
+            <div class="content" *ngFor="let frage of heuristik.fragen;let j = index">
+              <div class="form-row">
+                <h5 class="text-center" id="frage">{{frage.frage}}</h5>
               </div>
+              <table *ngFor="let a of frage.anzahlAntworten; let k = index">
+                <tr>
+                  <th *ngFor="let item of buttonsCounter">{{item.label}}</th>
+                </tr>
+                <tr>
+                  <td *ngFor="let button of buttonsCounter; let l = index">
+                    <label id="radioButtonBlock" for="{{'radioButton'+i+j+k+l}}">
+                    <input type="radio" class="likertValue" id="{{'radioButton'+i+j+k+l}}" required (change)= "onRadiobuttonClick(button.id,k,frage)" value={{button.id}}  name="{{'frageAntwort'+i+j+k}}">
+                    </label>
+                  </td>
+                </tr>
+              </table>
+              <label for="exampleFormControlTextarea2">Notizen</label>
+              <textarea class="form-control rounded-0" [(ngModel)]="frage.notiz" id="notizTextFeld" rows="3"></textarea>
 
+            <div class="btn-group">
+              <button type="button" class="btn btn-success btn-lg tableAddButton" (click) = "onTableAddClick(frage);"> + </button>
+              <button type="button" class="btn btn-danger btn-lg tableRemoveButton" (click) = "onTableRemoveClick(frage);"> - </button>
+           </div>
+
+          </div>
       </div>
     </div>
-    <div class="row">
-      <button type="button" class="btn btn-primary btn-lg" (click) = "onButtonPrevClick();" [disabled]="divCounter == 0" >Prev</button>
-      <button type="button" class="btn btn-primary btn-lg" (click) = "onButtonNextClick();" [disabled]="divCounter == 4" >Next</button>
-      <button type="button" class="btn btn-primary btn-lg" (click) = "onButtonSaveClick();" >Save</button>
-    </div>
 
+    <div class="row-form justify-content">
+      <button type="button" class="btn btn-primary btn-lg" id="saveButton" (click) = "onButtonSaveClick();">Save</button>
+    </div>
   </div>
   <app-footer-view></app-footer-view>
 </div>

@@ -93,7 +93,8 @@ app.post('/frageboegen/:fragebogenId/heuristiken', (req, res) => {
     (new HeuristikTest({
         '_heuristikId': req.body._heuristikId,
         '_fragebogenId': req.params.fragebogenId,
-        'fragen': req.body.fragen
+        'fragen': req.body.fragen,
+        'titel': req.body.titel
     }))
     .save()
     .then((heuristik) => res.send(heuristik))

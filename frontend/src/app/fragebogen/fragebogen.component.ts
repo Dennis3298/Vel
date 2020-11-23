@@ -31,13 +31,13 @@ export class FragebogenComponent implements OnInit {
       this.fragebogen.interviewerLastName = interviewerLastName.value
       this.fragebogen.titel = titel.value
       this.teilnehmer.age = age.value
-      if(male.value){
+      if(male.checked){
         this.teilnehmer.geschlecht = "MÄNNLICH"
       }
-      else if(female.value){
+      else if(female.checked){
         this.teilnehmer.geschlecht = "WEIBLICH"
       }
-      else if(diverse.value){
+      else if(diverse.checked){
         this.teilnehmer.geschlecht = "DIVERS"
       }
 

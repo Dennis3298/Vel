@@ -1,12 +1,13 @@
 const mongoose = require('mongoose')
 
 const AntwortSchema = new mongoose.Schema({
-    antwort: {
+    wert: {
         type: Number,
         required: true
     },
-    notiz: {
-        type: String
+    _antwortId: {
+        type: String,
+        required: true
     }
 })
 
@@ -19,7 +20,14 @@ const FrageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    antworten: [AntwortSchema]
+    antworten: {
+        type: [AntwortSchema],
+        required: true
+    },
+    notiz: {
+        type: String,
+        required: false
+    }
 })
 
 const HeuristikTestSchema = new mongoose.Schema({
@@ -33,6 +41,10 @@ const HeuristikTestSchema = new mongoose.Schema({
     },
     fragen: {
         type: [FrageSchema],
+        required: true
+    },
+    titel: {
+        type: String,
         required: true
     }
 })
