@@ -1,0 +1,29 @@
+@import "../../../node_modules/bootstrap-scss/";
+
+.statistikContainer{
+  background: rgb(255, 255, 255, 0.9);
+  height: 85vh;
+  overflow: auto;
+  border-style: solid;
+  margin: 10px 0px 10px 0px
+}
+
+.formBlock{
+  margin: 5px;
+}
+
+button{
+  color: white
+}
+
+#statistik{
+  max-width: 75vw;
+  min-width: 75vw;
+
+}
+
+.header{
+  margin: 10px;
+}
+
+
