@@ -3,6 +3,7 @@ export default class Detailview{
   frage: String
   detailNotiz: String
   _heuristikId: String
+  _frageId: String
 
   constructor(){
     this.details = [new String]

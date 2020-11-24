@@ -4,6 +4,7 @@ const mongoose = require('./database/mongoose')
 
 const Fragebogen = require('./database/models/fragebogen')
 const HeuristikTest = require('./database/models/heuristikTest')
+const Detailview = require('./database/models/detailview')
 
 app.use(express.json())
 
@@ -25,7 +26,8 @@ app.use((req, res, next) => {
 
  //Neuen Fragebogen posten
 app.post('/frageboegen', (req, res) => {
-    (new Fragebogen({
+    (
+        new Fragebogen({
         'titel': req.body.titel,
         'heuristiken': req.body.heuristiken,
         'interviewerFirstName': req.body.interviewerFirstName,
@@ -90,7 +92,8 @@ app.get('/frageboegen/:fragebogenId/heuristiken', (req, res) => {
 
 //Neue Heuristik zu Fragebogen hinzufügen
 app.post('/frageboegen/:fragebogenId/heuristiken', (req, res) => {
-    (new HeuristikTest({
+    (
+        new HeuristikTest({
         '_heuristikId': req.body._heuristikId,
         '_fragebogenId': req.params.fragebogenId,
         'fragen': req.body.fragen,
@@ -123,6 +126,26 @@ app.patch('/frageboegen/:fragebogenId/heuristiken/:heuristikId', (req, res) => {
 })
 
 /**************************************************/
+
+/*******************Detailview*********************/
+
+//bestimmte Detailview bekommen
+app.get('/detailview', (req, res) => {
+    console.log('lol')
+    Detailview.find({}).then(details => res.send(details))
+     .catch((error) => console.log(error))
+})
+
+//alle details bekommen
+app.get('/detailview/:_heuristikId/:_frageId', (req, res) => {
+    console.log(req.params._frageId)
+    Detailview.find({
+        _frageId: req.params._frageId,
+        _heuristikId: req.params._heuristikId
+     })
+     .then(details => res.send(details))
+     .catch((error) => console.log(error))
+})
 
 
 app.listen(3000, () => console.log("Server is connected on port 3000"))

@@ -4,7 +4,6 @@ import Heuristik from '../Models/heuristik';
 import Frage from '../Models/frage';
 import Antwort from '../Models/antwort';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Params } from '@angular/router';
 import { FragebogenService } from '../fragebogen.service';
 import { Subscription } from 'rxjs';
 
@@ -18,25 +17,8 @@ export class HeuristikComponent implements OnInit {
 
   heuristikList: Array<Heuristik>
 
-  HeuristikA: Heuristik
-  HeuristikB: Heuristik
-  HeuristikC: Heuristik
-  HeuristikD: Heuristik
-  HeuristikE: Heuristik
-
-  fragenHeuristikA: [Frage]
-  frageHeuristikA: Frage
-  fragenHeuristikB: [Frage]
-  frageHeuristikB: Frage
-  fragenHeuristikC: [Frage]
-  frageHeuristikC: Frage
-  fragenHeuristikD: [Frage]
-  frageHeuristikD: Frage
-  fragenHeuristikE: [Frage]
-  frageHeuristikE: Frage
-
   fragebogen: Fragebogen
-  fragenA: [String]
+
   buttonsCounter: Object
   frageAntwort: Antwort
 
@@ -69,137 +51,47 @@ export class HeuristikComponent implements OnInit {
       { id: 0, label: 'k.A.'}
     ]
 
-    this.fragenA = [new String]
-    this.fragenA.splice(0)
-    this.fragenA.push("Das ist Frage A")
-    this.fragenA.push("Das ist Frage B")
-    this.fragenA.push("Das ist Frage C")
-
 
     //Bestimmen welche Heuristiken displayed werden
-    this.checkForHeuristiken()
+    this.checkForHeuristiken("HEU1", "Nachvollziehbarkeit und Feedback zur Aufgabenbearbeitung")
+    this.checkForHeuristiken("HEU2", "Von der Flexibilität der Vorgehensweisen zur gemeinsamen Weiterentwicklung des Systems")
+    this.checkForHeuristiken("HEU3", "Kommunikationsunterstützung für Aufgabenbearbeitung und sozialen Austausch")
+    this.checkForHeuristiken("HEU4", "Aufgabengebundener Informationsaustausch für die Erleichterung geistiger Arbeit")
+    this.checkForHeuristiken("HEU5", "Aufgabenorganisation für die Balance zwischen Anstrengung und erlebtem Erfolg ")
+    this.checkForHeuristiken("HEU6", "Kompatibilität zwischen Anforderungen, Kompetenzentwicklung und Systemeigenschaften")
+    this.checkForHeuristiken("HEU7", "Effiziente Organisation der Aufgabenbearbeitung für ganzheitliche Ziele")
+    this.checkForHeuristiken("HEU8", "Unterstützende Technik und Ressourcen für produktive und fehlerfreie Arbeit")
 
     console.log(this.heuristikList)
     console.log(this.fragebogen)
   }
 
 
-  //Methode zum überprüfen, welche Kategorie bzw. Fragen gerendered werden sollen
-  checkForHeuristiken(){
+  checkForHeuristiken(_heuristikId: String, titel: String){
+    //this.heuristikList.push(this.Heuristik1)
+    if(this.fragebogen.heuristiken.includes(_heuristikId)){
 
-    if(this.fragebogen.heuristiken.includes("HEU1")){
-      //Fragen für Heuristik A
-      this.HeuristikA = new Heuristik
+            let heuristik = new Heuristik
+            heuristik.fragen
+            heuristik._heuristikId = _heuristikId
+            heuristik.titel = titel
 
-      this.fragenHeuristikA = [new Frage]
-      this.fragenHeuristikA.splice(0)
+            let idSuffix: number = 1
+            let fragen = [new String]
+            fragen.splice(0)
 
-      //Fragen-Array-Objekt von HeuristikA setzen, sonst undefined
-      this.HeuristikA.fragen = this.fragenHeuristikA
-      this.HeuristikA._heuristikId = "HEU1"
-      this.HeuristikA.titel = "Nachvollziehbarkeit und Feedback zur Aufgabenbearbeitung"
+            this.fillFragen(fragen , _heuristikId)
 
-      let idSuffix: number = 1
-      this.fragenA.forEach(element => {
-          this.frageHeuristikA = new Frage
-          this.frageHeuristikA.frage = element
-          this.frageHeuristikA._frageId = "F" + idSuffix
-          idSuffix++
-          this.HeuristikA.fragen.push(this.frageHeuristikA)
-      });
-      this.heuristikList.push(this.HeuristikA)
+            fragen.forEach(element => {
+                let frageHeuristik = new Frage
+                frageHeuristik.frage = element
+                frageHeuristik._frageId = "F" + idSuffix
+                idSuffix++
+                heuristik.fragen.push(frageHeuristik)
+            });
+            this.heuristikList.push(heuristik)
     }
-
-    if(this.fragebogen.heuristiken.includes("HEU2")){
-      //Fragen für Heuristik B
-      this.HeuristikB = new Heuristik
-
-      this.fragenHeuristikB = [new Frage]
-      this.fragenHeuristikB.splice(0)
-
-      this.HeuristikB.fragen = this.fragenHeuristikB
-      this.HeuristikB._heuristikId = "HEU2"
-      this.HeuristikB.titel = "Von der Flexibilität der Vorgehensweisen zur gemeinsamen Weiterentwicklung des Systems"
-
-      let idSuffix: number = 1
-      this.fragenA.forEach(element => {
-          this.frageHeuristikB = new Frage
-          this.frageHeuristikB.frage = element
-          this.frageHeuristikB._frageId = "F" + idSuffix
-          idSuffix++
-          this.HeuristikB.fragen.push(this.frageHeuristikB)
-      });
-      this.heuristikList.push(this.HeuristikB)
-    }
-
-    if(this.fragebogen.heuristiken.includes("HEU3")){
-      //Fragen für Heuristik C
-      this.HeuristikC = new Heuristik
-
-      this.fragenHeuristikC = [new Frage]
-      this.fragenHeuristikC.splice(0)
-
-      this.HeuristikC.fragen = this.fragenHeuristikC
-      this.HeuristikC._heuristikId = "HEU3"
-      this.HeuristikC.titel = "Kommunikationsunterstützung für Aufgabenbearbeitung und sozialen Austausch"
-
-      let idSuffix: number = 1
-      this.fragenA.forEach(element => {
-          this.frageHeuristikC = new Frage
-          this.frageHeuristikC.frage = element
-          this.frageHeuristikC._frageId = "F" + idSuffix
-          idSuffix++
-          this.HeuristikC.fragen.push(this.frageHeuristikC)
-      });
-      this.heuristikList.push(this.HeuristikC)
-    }
-
-    if(this.fragebogen.heuristiken.includes("HEU4")){
-      this.HeuristikD = new Heuristik
-
-      this.fragenHeuristikD = [new Frage]
-      this.fragenHeuristikD.splice(0)
-
-      this.HeuristikD.fragen = this.fragenHeuristikD
-      this.HeuristikD._heuristikId = "HEU4"
-      this.HeuristikD.titel = "Aufgabengebundener Informationsaustausch für die Erleichterung geistiger Arbeit"
-
-      let idSuffix: number = 1
-      this.fragenA.forEach(element => {
-          this.frageHeuristikD = new Frage
-          this.frageHeuristikD.frage = element
-          this.frageHeuristikD._frageId = "F" + idSuffix
-          idSuffix++
-          this.HeuristikD.fragen.push(this.frageHeuristikD)
-      });
-      this.heuristikList.push(this.HeuristikD)
-    }
-
-    if(this.fragebogen.heuristiken.includes("HEU5")){
-      //Fragen für Heuristik E
-      this.HeuristikE = new Heuristik
-
-      this.fragenHeuristikE = [new Frage]
-      this.fragenHeuristikE.splice(0)
-
-      this.HeuristikE.fragen = this.fragenHeuristikE
-      this.HeuristikE._heuristikId = "HEU5"
-      this.HeuristikE.titel = "Aufgabenorganisation für die Balance zwischen Anstrengung und erlebtem Erfolg"
-
-      let idSuffix: number = 1
-      this.fragenA.forEach(element => {
-          this.frageHeuristikE = new Frage
-          this.frageHeuristikE.frage = element
-          this.frageHeuristikE._frageId = "F" + idSuffix
-          idSuffix++
-          this.HeuristikE.fragen.push(this.frageHeuristikE)
-      });
-      this.heuristikList.push(this.HeuristikE)
-    }
-
   }
-
-
 
   ngOnInit(): void {
     console.log(this.fragebogenService)
@@ -253,6 +145,44 @@ export class HeuristikComponent implements OnInit {
        }
      }
     }
+  }
+
+  fillFragen(fragen: String[], _heuristikId: String){
+    switch(_heuristikId){
+      case "HEU1":
+          fragen.push("Das ist Frage A")
+      break
+
+      case "HEU2":
+        fragen.push("Das ist Frage B")
+      break
+
+      case "HEU3":
+        fragen.push("Das ist Frage C")
+      break
+
+      case "HEU4":
+        fragen.push("Das ist Frage D")
+      break
+
+      case "HEU5":
+        fragen.push("Das ist Frage E")
+      break
+
+      case "HEU6":
+        fragen.push("Das ist Frage F")
+      break
+
+      case "HEU7":
+        fragen.push("Das ist Frage G")
+      break
+
+      case "HEU8":
+        fragen.push("Das ist Frage H")
+      break
+
+    }
+
   }
 
 }

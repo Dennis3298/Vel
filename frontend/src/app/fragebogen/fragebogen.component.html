@@ -57,33 +57,35 @@
 <div class="formBlock">
   <p class="h4 mb-4">Welche Heuristiken sollen befragt werden?</p>
 
-  <!-- Default inline 1-->
-<mdb-checkbox [inline]="false" [default]="true" #heu1>Nachvollziehbarkeit und Feedback zur
-  Aufgabenbearbeitung
-  </mdb-checkbox>
 
-<!-- Default inline 2-->
-<mdb-checkbox [inline]="false" [default]="true" #heu2>Von der Flexibilität der Vorgehensweisen zur
-  gemeinsamen Weiterentwicklung des Systems
-  </mdb-checkbox>
+  <mdb-checkbox [inline]="false" [default]="true" #heu1>Nachvollziehbarkeit und Feedback zur
+    Aufgabenbearbeitung</mdb-checkbox>
 
-<!-- Default inline 3-->
-<mdb-checkbox [inline]="false" [default]="true" #heu3>Kommunikationsunterstützung für Aufgabenbearbeitung
-  und sozialen Austausch</mdb-checkbox>
+  <mdb-checkbox [inline]="false" [default]="true" #heu2>Von der Flexibilität der Vorgehensweisen zur
+    gemeinsamen Weiterentwicklung des Systems</mdb-checkbox>
 
-<!-- Default inline 2-->
-<mdb-checkbox [inline]="false" [default]="true" #heu4>Aufgabengebundener Informationsaustausch für die
-  Erleichterung geistiger Arbeit
-  </mdb-checkbox>
+  <mdb-checkbox [inline]="false" [default]="true" #heu3>Kommunikationsunterstützung für Aufgabenbearbeitung
+    und sozialen Austausch</mdb-checkbox>
 
-<!-- Default inline 3-->
-<mdb-checkbox [inline]="false" [default]="true" #heu5>Aufgabenorganisation für die Balance zwischen
-  Anstrengung und erlebtem Erfolg </mdb-checkbox>
+  <mdb-checkbox [inline]="false" [default]="true" #heu4>Aufgabengebundener Informationsaustausch für die
+    Erleichterung geistiger Arbeit</mdb-checkbox>
+
+  <mdb-checkbox [inline]="false" [default]="true" #heu5>Aufgabenorganisation für die Balance zwischen
+    Anstrengung und erlebtem Erfolg </mdb-checkbox>
+
+  <mdb-checkbox [inline]="false" [default]="true" #heu6>Kompatibilität zwischen Anforderungen,
+    Kompetenzentwicklung und Systemeigenschaften</mdb-checkbox>
+
+  <mdb-checkbox [inline]="false" [default]="true" #heu7>Effiziente Organisation der Aufgabenbearbeitung für
+    ganzheitliche Ziele </mdb-checkbox>
+
+  <mdb-checkbox [inline]="false" [default]="true" #heu8>Unterstützende Technik und Ressourcen für produktive
+    und fehlerfreie Arbeit</mdb-checkbox>
 
 </div>
 
 <button type="button" class="btn btn-primary btn-lg" id="formButton" (click)= "onWeiterClick(interviewerFirstName, interviewerLastName
-,titel, age, male, female, diverse, heu1, heu2, heu3, heu4, heu5);">Weiter</button>
+,titel, age, male, female, diverse, heu1, heu2, heu3, heu4, heu5, heu6, heu7, heu8);">Weiter</button>
 
 </div>
 

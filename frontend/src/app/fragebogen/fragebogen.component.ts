@@ -25,7 +25,7 @@ export class FragebogenComponent implements OnInit {
   //Methode schnappt sich den User-input und speicher diesen innerhalb der entsprechenden Properties von fragebogen und teilnehmer ab
   //hierbei wird komposition verwendet in dem teilnehmer (ein eigenes Objekt einer eigenen Klasse) ein Property von fragebogen darstellt
   onWeiterClick(interviewerFirstName, interviewerLastName
-    ,titel, age, male, female, diverse, heu1, heu2, heu3, heu4, heu5){
+    ,titel, age, male, female, diverse, heu1, heu2, heu3, heu4, heu5, heu6, heu7, heu8){
 
       this.fragebogen.interviewerFirstName = interviewerFirstName.value
       this.fragebogen.interviewerLastName = interviewerLastName.value
@@ -49,6 +49,10 @@ export class FragebogenComponent implements OnInit {
       this.checkForHeuristik(heu3, "HEU3")
       this.checkForHeuristik(heu4, "HEU4")
       this.checkForHeuristik(heu5, "HEU5")
+      this.checkForHeuristik(heu5, "HEU6")
+      this.checkForHeuristik(heu5, "HEU7")
+      this.checkForHeuristik(heu5, "HEU8")
+
 
       console.log(this.fragebogen)
       console.log('Länge:'+this.fragebogen.heuristiken.length)

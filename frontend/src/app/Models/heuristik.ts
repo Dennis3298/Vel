@@ -7,6 +7,8 @@ export default class Heuristik{
   titel: String
 
   constructor(){
+    this.fragen = [new Frage]
+    this.fragen.splice(0)
   }
 
 }

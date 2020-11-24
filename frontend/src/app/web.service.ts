@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -11,13 +11,18 @@ export class WebService {
       this.ROOT_URL = "http://localhost:3000"
    }
 
-   get(uri: String){
+  get(uri: String){
      return this.http.get(`${this.ROOT_URL}/${uri}`)
-   }
+  }
+
 
   post(uri: String, payload: Object){
     return this.http.post(`${this.ROOT_URL}/${uri}`, payload)
   }
+
+  // use(uri: String, payload: Object){
+  //   return this.http.use(`${this.ROOT_URL}/${uri}`, payload)
+  // }
 
   patch(uri: String, payload: Object){
     return this.http.patch(`${this.ROOT_URL}/${uri}`, payload)

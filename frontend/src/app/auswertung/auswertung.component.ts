@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HostListener } from '@angular/core'
 import Heuristik from '../Models/heuristik';
 import Detailview from '../Models/detailview'
+import { FragebogenService } from '../fragebogen.service';
 
 
 @Component({
@@ -17,21 +18,29 @@ export class AuswertungComponent implements OnInit {
   windowHeight: number
   windowWidth: number
 
-  heuristikADetailviewListe: [Detailview]
-  heuristikBDetailviewListe: [Detailview]
-  heuristikCDetailviewListe: [Detailview]
-  heuristikDDetailviewListe: [Detailview]
-  heuristikEDetailviewListe: [Detailview]
+  detailviewList: [Detailview[]]
 
   detailViewFragen: Array<any>
+  details: Object
 
-  constructor() {
+  constructor(private fragebogenService: FragebogenService) {
 
       this.heuristikList = new Array
       this.heuristikList = history.state.heuristikList
-      console.log(this.heuristikList)
-      console.log(this.windowHeight)
-      console.log(this.windowWidth)
+      this.detailviewList = [[new Detailview]]
+      this.detailviewList.splice(0)
+
+      // console.log(this.heuristikList)
+      // console.log(this.windowHeight)
+      // console.log(this.windowWidth)
+
+      var getDetails = fragebogenService.getDetailview("F1", "HEU1").subscribe(
+        data => {
+            this.details = JSON.stringify(data)
+        },
+        err => {
+          console.log(err);
+        })
    }
 
    public chartType: string = 'bar';
@@ -40,7 +49,7 @@ export class AuswertungComponent implements OnInit {
      { data: [0, 0, 0, 0, 0, 0, 0]}
    ];
 
-   public chartLabels: Array<any> = ['HEU1', 'HEU2', 'HEU3', 'HEU4', 'HEU5'];
+   public chartLabels: Array<any> = ['HEU1', 'HEU2', 'HEU3', 'HEU4', 'HEU5', 'HEU6', 'HEU7', 'HEU8'];
 
    public chartColors: Array<any> = [
      {
@@ -49,14 +58,20 @@ export class AuswertungComponent implements OnInit {
          'rgba(54, 162, 235, 0.2)',
          'rgba(255, 206, 86, 0.2)',
          'rgba(75, 192, 192, 0.2)',
-         'rgba(153, 102, 255, 0.2)'
+         'rgba(153, 102, 255, 0.2)',
+         'rgba(255, 255, 0, 0.2)',
+         'rgba(23, 142, 105, 0.2)',
+         'rgba(55, 222, 150, 0.2)'
        ],
        borderColor: [
          'rgba(255,99,132,1)',
          'rgba(54, 162, 235, 1)',
          'rgba(255, 206, 86, 1)',
          'rgba(75, 192, 192, 1)',
-         'rgba(153, 102, 255, 1)'
+         'rgba(153, 102, 255, 1)',
+         'rgba(255, 255, 0, 0.2)',
+         'rgba(23, 142, 105, 0.2)',
+         'rgba(55, 222, 150, 0.2)'
        ],
        borderWidth: 2,
      }
@@ -80,8 +95,22 @@ export class AuswertungComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ordneInListeEin(detail: Detailview, heuristik: Heuristik, heuristikDetails: Detailview[]){
+
+    detail._heuristikId = heuristik._heuristikId
+    heuristikDetails.push(detail)
+  }
+
+  clearArray(array) {
+    while (array.length) {
+      array.pop();
+    }
+  }
 
   initAntworten(filterZahl: number){
+    //zu Beginn alle Detailviews leeren, da diese neu initialisiert werden
+    this.clearArray(this.detailviewList)
+
     let data: any[] = new Array
     let labels: any[] = new Array
 
@@ -90,13 +119,20 @@ export class AuswertungComponent implements OnInit {
 
     this.heuristikList.forEach(heuristik => {
      let antwortCounter = 0
+     let heuristikDetails = [new Detailview]
+     heuristikDetails.splice(0)
        heuristik.fragen.forEach(frage => {
          frage.antworten.forEach(antwort => {
              if(antwort.wert == filterZahl){
                antwortCounter++
+               let detail: Detailview = new Detailview
+               detail.frage = frage.frage
+               detail._frageId = frage._frageId
+               this.ordneInListeEin(detail, heuristik, heuristikDetails)
              }
          });
        });
+       this.detailviewList.push(heuristikDetails)
        labels.push(heuristik._heuristikId)
        data.push(antwortCounter)
        if(antwortCounter > this.yAchseMaxWert) {
@@ -104,11 +140,9 @@ export class AuswertungComponent implements OnInit {
          this.chartOptions = {tickst:{max: this.yAchseMaxWert+1}}
        }
    });
-   console.log(data)
+   console.log(this.detailviewList)
    this.chartDatasets = [{data: data}]
    this.chartLabels = labels
-   console.log(this.chartDatasets)
-
   }
 
   onButtonStatistikClick(filterObjekt: any){
@@ -126,9 +160,9 @@ export class AuswertungComponent implements OnInit {
 
   private detectScreenSize() {
       this.windowHeight = window.innerHeight;
-      console.log(this.windowHeight)
+      //console.log(this.windowHeight)
       this.windowWidth = window.innerWidth;
-      console.log(this.windowWidth)
+      //console.log(this.windowWidth)
 
       if(this.windowWidth < 900){
         this.chartType = "polarArea"

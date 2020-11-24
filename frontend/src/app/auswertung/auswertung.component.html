@@ -27,8 +27,13 @@
         </canvas>
       </div>
 
-      <div>
-
+      <div *ngFor="let heuristikDetailview of detailviewList; let i = index">
+        <div *ngFor="let detailview of heuristikDetailview; let j = index">
+          <p>{{detailview._heuristikId}}</p>
+        </div>
+        <div *ngFor="let detailview of heuristikDetailview; let j = index">
+              <p>{{detailview.frage}}</p>
+        </div>
       </div>
 
 
