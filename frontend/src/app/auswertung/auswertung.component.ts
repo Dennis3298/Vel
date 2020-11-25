@@ -21,26 +21,14 @@ export class AuswertungComponent implements OnInit {
   detailviewList: [Detailview[]]
 
   detailViewFragen: Array<any>
+
   details: Object
 
   constructor(private fragebogenService: FragebogenService) {
-
       this.heuristikList = new Array
       this.heuristikList = history.state.heuristikList
       this.detailviewList = [[new Detailview]]
       this.detailviewList.splice(0)
-
-      // console.log(this.heuristikList)
-      // console.log(this.windowHeight)
-      // console.log(this.windowWidth)
-
-      var getDetails = fragebogenService.getDetailview("F1", "HEU1").subscribe(
-        data => {
-            this.details = JSON.stringify(data)
-        },
-        err => {
-          console.log(err);
-        })
    }
 
    public chartType: string = 'bar';
@@ -96,8 +84,8 @@ export class AuswertungComponent implements OnInit {
   }
 
   ordneInListeEin(detail: Detailview, heuristik: Heuristik, heuristikDetails: Detailview[]){
-
     detail._heuristikId = heuristik._heuristikId
+    detail.heuristikTitel = heuristik.titel
     heuristikDetails.push(detail)
   }
 
@@ -147,6 +135,17 @@ export class AuswertungComponent implements OnInit {
 
   onButtonStatistikClick(filterObjekt: any){
     this.initAntworten(filterObjekt.value)
+  }
+
+  onButtonDetailsClick(detailview: Detailview){
+    //let details: Object
+    let getDetails = this.fragebogenService.getDetailview(detailview._frageId.toString(), detailview._heuristikId.toString()).subscribe(
+      data => {
+          this.details = JSON.stringify(data)
+      },
+      err => {
+        console.log(err);
+      })
   }
 
   @HostListener("window:resize", [])

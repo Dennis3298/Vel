@@ -4,6 +4,7 @@ export default class Detailview{
   detailNotiz: String
   _heuristikId: String
   _frageId: String
+  heuristikTitel: String
 
   constructor(){
     this.details = [new String]

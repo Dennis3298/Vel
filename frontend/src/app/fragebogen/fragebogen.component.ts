@@ -49,9 +49,9 @@ export class FragebogenComponent implements OnInit {
       this.checkForHeuristik(heu3, "HEU3")
       this.checkForHeuristik(heu4, "HEU4")
       this.checkForHeuristik(heu5, "HEU5")
-      this.checkForHeuristik(heu5, "HEU6")
-      this.checkForHeuristik(heu5, "HEU7")
-      this.checkForHeuristik(heu5, "HEU8")
+      this.checkForHeuristik(heu6, "HEU6")
+      this.checkForHeuristik(heu7, "HEU7")
+      this.checkForHeuristik(heu8, "HEU8")
 
 
       console.log(this.fragebogen)

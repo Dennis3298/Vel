@@ -28,15 +28,32 @@
       </div>
 
       <div *ngFor="let heuristikDetailview of detailviewList; let i = index">
+        <div class="mb-4 filterFragen">
+          <form class="form-inline">
+          <div class="container titel form-row">
+            <div class="col-9">
+             <!-- <h5>{{heuristikDetailview[0].heuristikTitel}}: {{heuristikDetailview[0].heuristikTitel}}</h5> -->
+            </div>
+            <div class="text-right col">
+              <button class="btn btn-info btn-circle pull-right" mdbWavesEffect type="submit">Info</button>
+           </div>
+          </div>
+        </form>
         <div *ngFor="let detailview of heuristikDetailview; let j = index">
-          <p>{{detailview._heuristikId}}</p>
+          <form class="form-inline">
+            <div class="container fragen form-row">
+              <div class="col-9">
+                <p>{{detailview.frage}}</p>
+             </div>
+              <div class="text-right col">
+              <button class="btn-sm btn-primary" mdbWavesEffect type="submit" (click)= "onButtonDetailsClick(detailview)">Details</button>
+              </div>
+            </div>
+          </form>
         </div>
-        <div *ngFor="let detailview of heuristikDetailview; let j = index">
-              <p>{{detailview.frage}}</p>
-        </div>
+       </div>
       </div>
-
-
+    <div>{{details}}</div>
   </div>
   </div>
   <app-footer-view></app-footer-view>
