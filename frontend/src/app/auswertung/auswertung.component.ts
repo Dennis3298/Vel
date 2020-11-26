@@ -3,6 +3,8 @@ import { HostListener } from '@angular/core'
 import Heuristik from '../Models/heuristik';
 import Detailview from '../Models/detailview'
 import { FragebogenService } from '../fragebogen.service';
+import {MatDialog} from '@angular/material/dialog';
+import { DetailDialogComponent } from '../detail-dialog/detail-dialog.component';
 
 
 @Component({
@@ -21,10 +23,10 @@ export class AuswertungComponent implements OnInit {
   detailviewList: [Detailview[]]
 
   detailViewFragen: Array<any>
-
   details: Object
 
-  constructor(private fragebogenService: FragebogenService) {
+
+  constructor(private fragebogenService: FragebogenService, public dialog: MatDialog) {
       this.heuristikList = new Array
       this.heuristikList = history.state.heuristikList
       this.detailviewList = [[new Detailview]]
@@ -138,14 +140,25 @@ export class AuswertungComponent implements OnInit {
   }
 
   onButtonDetailsClick(detailview: Detailview){
-    //let details: Object
+    let dataDetail = {
+      a: "_heuristikId",
+      b: "_frageId",
+    };
+
     let getDetails = this.fragebogenService.getDetailview(detailview._frageId.toString(), detailview._heuristikId.toString()).subscribe(
       data => {
-          this.details = JSON.stringify(data)
+          let detailData = data as Object
+          let detailFragen = detailData[0].details
+          let details = {
+            detailFragen: detailFragen,
+            heuristikTitel: detailview.heuristikTitel
+          }
+          this.openDialog(details)
       },
       err => {
         console.log(err);
       })
+
   }
 
   @HostListener("window:resize", [])
@@ -169,4 +182,18 @@ export class AuswertungComponent implements OnInit {
         this.chartType = "bar"
       }
   }
+
+  openDialog(details: Object){
+    try{
+      const dialogRef = this.dialog.open(DetailDialogComponent, {
+        data: {details : details}
+      })
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+
+    }catch(e){console.log(e)}
+  }
 }
+

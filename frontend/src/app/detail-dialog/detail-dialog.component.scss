@@ -1,0 +1,16 @@
+@import "../../../node_modules/bootstrap-scss/";
+
+#detailFragen{
+  border-style: solid;
+  border-width: thin;
+
+  padding: 10px;
+  overflow-wrap:break-word;
+  overflow: auto;
+
+  max-height: 80vh;
+}
+
+h4{
+  text-decoration: underline;
+}

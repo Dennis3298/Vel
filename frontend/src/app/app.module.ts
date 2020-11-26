@@ -12,6 +12,9 @@ import { FooterViewComponent } from './footer-view/footer-view.component';
 import { FragebogenComponent } from './fragebogen/fragebogen.component';
 import { HeuristikComponent } from './heuristik/heuristik.component';
 import { AuswertungComponent } from './auswertung/auswertung.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DetailDialogComponent } from './detail-dialog/detail-dialog.component';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -23,15 +26,26 @@ import { AuswertungComponent } from './auswertung/auswertung.component';
     FragebogenComponent,
     HeuristikComponent,
     AuswertungComponent,
+    DetailDialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
-  providers: [],
+  entryComponents:[
+    DetailDialogComponent
+  ],
+  providers: [
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

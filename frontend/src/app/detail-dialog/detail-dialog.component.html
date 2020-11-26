@@ -1,0 +1,10 @@
+<div id="detailFragen">
+<h4>{{heuristikTitel}}</h4>
+<h5>Detail-Fragen:</h5>
+  <div *ngFor="let frage of detailFragen; let i = index">
+    <p>{{frage}}</p>
+  </div>
+
+  <label for="exampleFormControlTextarea2">Notizen</label>
+  <textarea class="form-control rounded-0" id="notizTextFeld" rows="3"></textarea>
+</div>
