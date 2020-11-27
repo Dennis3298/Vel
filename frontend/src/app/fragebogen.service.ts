@@ -47,10 +47,11 @@ export class FragebogenService {
   // }´
 
   getDetailview(_frageId: string, _heuristikId: string){
-
-    let params = new HttpParams().set("_frageId", _frageId).set("_heuristikId", _heuristikId) // Neue Params für Request
-    //console.log('detailview/' + {params})
     return this.webService.get('detailview/' + _heuristikId + '/' + _frageId)
+  }
+
+  updateHeuristik(_heuristikId: string, _fragebogenId: string, _frageId: string, updateNotiz: string){
+    return this.webService.patch('frageboegen/' + _fragebogenId + '/heuristiken/' + _heuristikId + '/' + _frageId, updateNotiz)
   }
 
 }

@@ -119,7 +119,7 @@ app.delete('/frageboegen/:fragebogenId/heuristiken/:heuristikId', (req, res) => 
 })
 
 //Bestimmte Heuristik aktualisieren
-app.patch('/frageboegen/:fragebogenId/heuristiken/:heuristikId', (req, res) => {
+app.patch('/frageboegen/:fragebogenId/heuristiken/:_heuristikId/:_frageId', (req, res) => {
     HeuristikTest.findOneAndUpdate({'_id' : req.params.heuristikId}, {$set: req.body})
         .then(heuristik => res.send(heuristik))
         .catch((error) => console.log(error))

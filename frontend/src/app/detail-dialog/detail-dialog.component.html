@@ -6,5 +6,7 @@
   </div>
 
   <label for="exampleFormControlTextarea2">Notizen</label>
-  <textarea class="form-control rounded-0" id="notizTextFeld" rows="3"></textarea>
+  <textarea class="form-control rounded-0" id="notizTextFeld" #notizen rows="3"></textarea>
+
+  <button class="btn btn-primary" mdbWavesEffect type="submit" (click)= "onButtonSaveClick(notizen)">Details</button>
 </div>
