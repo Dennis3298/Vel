@@ -5,6 +5,7 @@ import Detailview from '../Models/detailview'
 import { FragebogenService } from '../fragebogen.service';
 import {MatDialog} from '@angular/material/dialog';
 import { DetailDialogComponent } from '../detail-dialog/detail-dialog.component';
+import { element } from 'protractor';
 
 
 @Component({
@@ -27,6 +28,8 @@ export class AuswertungComponent implements OnInit {
 
   buttonsCounter: Object
 
+  filterCounter: Array<number>
+
 
   constructor(private fragebogenService: FragebogenService, public dialog: MatDialog) {
       this.heuristikList = new Array
@@ -47,6 +50,8 @@ export class AuswertungComponent implements OnInit {
         { id: 7, label: '7'},
         { id: 8, label: 'k.A.'}
       ]
+      this.filterCounter = new Array
+      this.filterCounter.splice(0)
 
       this.initStatistik()
    }
@@ -144,13 +149,40 @@ export class AuswertungComponent implements OnInit {
   }
 
   onCheckboxClick(checkBoxValue: number){
+    if(this.filterCounter.includes(checkBoxValue)){
+      const index = this.filterCounter.indexOf(checkBoxValue);
+      if (index > -1) {
+        this.filterCounter.splice(index, 1);
+      }
+    }
+    else{
+      this.filterCounter.push(checkBoxValue)
+    }
     this.detailviewList.forEach(detailview => {
       detailview.forEach(detail => {
-        if(detail.frageAntwort.includes(checkBoxValue)){
-          detail.hide = !(detail.hide)
-        }
+        if(this.filterCounter.length > 0){
+          // this.filterCounter.forEach(element => {
+          //   if(detail.frageAntwort.includes(element)){
+          //     detail.hide = true
+          //   }else if(!(this.filterCounter.includes(element))){
+          //     detail.hide=false
+          //   }
+          // });
+          let oneIncluded = false
+          detail.frageAntwort.forEach(element => {
+              if(this.filterCounter.includes(element)){
+                detail.hide = true
+                oneIncluded = true
+              }else if(!oneIncluded){
+                detail.hide = false
+              }
+          });
+        }else detail.hide=false
       })
     });
+
+
+
   }
 
   onButtonDetailsClick(detailview: Detailview){

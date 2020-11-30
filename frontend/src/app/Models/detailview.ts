@@ -1,7 +1,7 @@
 export default class Detailview{
   details: [String]
   frage: String
-  frageAntwort: [Number]
+  frageAntwort: number[]
   detailNotiz: String
   _heuristikId: String
   _frageId: String
@@ -12,7 +12,7 @@ export default class Detailview{
   constructor(){
     this.details = [new String]
     this.details.splice(0)
-    this.frageAntwort = [new Number]
+    this.frageAntwort = new Array
     this.frageAntwort.splice(0)
     this.hide = false
   }

@@ -1,4 +1,4 @@
 export default class Antwort{
-  wert: Number
+  wert: number
   _antwortId: String
 }
