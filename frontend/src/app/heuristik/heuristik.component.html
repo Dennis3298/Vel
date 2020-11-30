@@ -15,7 +15,7 @@
                 <tr>
                   <td *ngFor="let button of buttonsCounter; let l = index">
                     <label id="radioButtonBlock" for="{{'radioButton'+i+j+k+l}}">
-                    <input type="radio" class="likertValue" id="{{'radioButton'+i+j+k+l}}" required (change)= "onRadiobuttonClick(button.id,k,frage)" value={{button.id}}  name="{{'frageAntwort'+i+j+k}}">
+                      <input type="radio" class="likertValue" id="{{'radioButton'+i+j+k+l}}" required (change)= "onRadiobuttonClick(button.id,k,frage)" value={{button.id}}  name="{{'frageAntwort'+i+j+k}}">
                     </label>
                   </td>
                 </tr>

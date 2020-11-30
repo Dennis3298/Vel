@@ -25,12 +25,30 @@ export class AuswertungComponent implements OnInit {
   detailViewFragen: Array<any>
   details: Object
 
+  buttonsCounter: Object
+
 
   constructor(private fragebogenService: FragebogenService, public dialog: MatDialog) {
       this.heuristikList = new Array
       this.heuristikList = history.state.heuristikList
       this.detailviewList = [[new Detailview]]
       this.detailviewList.splice(0)
+
+
+      this.buttonsCounter = new Object
+      this.buttonsCounter =
+      [
+        { id: 1, label: '1'},
+        { id: 2, label: '2'},
+        { id: 3, label: '3'},
+        { id: 4, label: '4'},
+        { id: 5, label: '5'},
+        { id: 6, label: '6'},
+        { id: 7, label: '7'},
+        { id: 8, label: 'k.A.'}
+      ]
+
+      this.initStatistik()
    }
 
    public chartType: string = 'bar';
@@ -39,7 +57,7 @@ export class AuswertungComponent implements OnInit {
      { data: [0, 0, 0, 0, 0, 0, 0]}
    ];
 
-   public chartLabels: Array<any> = ['HEU1', 'HEU2', 'HEU3', 'HEU4', 'HEU5', 'HEU6', 'HEU7', 'HEU8'];
+   public chartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '0'];
 
    public chartColors: Array<any> = [
      {
@@ -51,7 +69,7 @@ export class AuswertungComponent implements OnInit {
          'rgba(153, 102, 255, 0.2)',
          'rgba(255, 255, 0, 0.2)',
          'rgba(23, 142, 105, 0.2)',
-         'rgba(55, 222, 150, 0.2)'
+         'rgba(35, 202, 190, 0.2)'
        ],
        borderColor: [
          'rgba(255,99,132,1)',
@@ -59,9 +77,9 @@ export class AuswertungComponent implements OnInit {
          'rgba(255, 206, 86, 1)',
          'rgba(75, 192, 192, 1)',
          'rgba(153, 102, 255, 1)',
-         'rgba(255, 255, 0, 0.2)',
-         'rgba(23, 142, 105, 0.2)',
-         'rgba(55, 222, 150, 0.2)'
+         'rgba(255, 255, 0, 1)',
+         'rgba(23, 142, 105, 1)',
+         'rgba(35, 202, 190, 1)'
        ],
        borderWidth: 2,
      }
@@ -74,7 +92,6 @@ export class AuswertungComponent implements OnInit {
         type: 'linear',
         ticks: {
           min: 0,
-          max: 0,
           stepSize: 1
         }
       }]}
@@ -85,11 +102,11 @@ export class AuswertungComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ordneInListeEin(detail: Detailview, heuristik: Heuristik, heuristikDetails: Detailview[]){
-    detail._heuristikId = heuristik._heuristikId
-    detail.heuristikTitel = heuristik.titel
-    heuristikDetails.push(detail)
-  }
+  // ordneInListeEin(detail: Detailview, heuristik: Heuristik, heuristikDetails: Detailview[]){
+  //   detail._heuristikId = heuristik._heuristikId
+  //   detail.heuristikTitel = heuristik.titel
+  //   heuristikDetails.push(detail)
+  // }
 
   clearArray(array) {
     while (array.length) {
@@ -97,53 +114,50 @@ export class AuswertungComponent implements OnInit {
     }
   }
 
-  initAntworten(filterZahl: number){
-    //zu Beginn alle Detailviews leeren, da diese neu initialisiert werden
-    this.clearArray(this.detailviewList)
-
-    let data: any[] = new Array
-    let labels: any[] = new Array
-
-    data.splice(0)
-    labels.splice(0)
-
+  initStatistik(){
+    let data = [0,0,0,0,0,0,0,0]
+    let heuristikDetails: [Detailview]
+    heuristikDetails = [new Detailview]
+    heuristikDetails.splice(0)
     this.heuristikList.forEach(heuristik => {
-     let antwortCounter = 0
-     let heuristikDetails = [new Detailview]
-     heuristikDetails.splice(0)
        heuristik.fragen.forEach(frage => {
-         frage.antworten.forEach(antwort => {
-             if(antwort.wert == filterZahl){
-               antwortCounter++
-               let detail: Detailview = new Detailview
-               detail.frage = frage.frage
-               detail._frageId = frage._frageId
-               this.ordneInListeEin(detail, heuristik, heuristikDetails)
-             }
-         });
+         for(let i=1; i<9;i++){
+          frage.antworten.forEach(antwort => {
+            if(antwort.wert == i){
+              data[i-1] += 1
+              let detail: Detailview = new Detailview
+              detail.frage = frage.frage
+              detail._frageId = frage._frageId
+              frage.antworten.forEach(antwort => {
+                detail.frageAntwort.push(antwort.wert)
+              });
+              detail._heuristikId = heuristik._heuristikId
+              detail.heuristikTitel = heuristik.titel
+              heuristikDetails.push(detail)
+              }
+           });
+         }
        });
-       this.detailviewList.push(heuristikDetails)
-       labels.push(heuristik._heuristikId)
-       data.push(antwortCounter)
-       if(antwortCounter > this.yAchseMaxWert) {
-         this.yAchseMaxWert = antwortCounter
-         this.chartOptions = {tickst:{max: this.yAchseMaxWert+1}}
-       }
    });
-   console.log(this.detailviewList)
+   this.detailviewList.push(heuristikDetails)
    this.chartDatasets = [{data: data}]
-   this.chartLabels = labels
   }
 
-  onButtonStatistikClick(filterObjekt: any){
-    this.initAntworten(filterObjekt.value)
+  onCheckboxClick(checkBoxValue: number){
+    this.detailviewList.forEach(detailview => {
+      detailview.forEach(detail => {
+        if(detail.frageAntwort.includes(checkBoxValue)){
+          detail.hide = !(detail.hide)
+        }
+      })
+    });
   }
 
   onButtonDetailsClick(detailview: Detailview){
-    let dataDetail = {
-      a: "_heuristikId",
-      b: "_frageId",
-    };
+    // let dataDetail = {
+    //   a: "_heuristikId",
+    //   b: "_frageId",
+    // };
 
     let getDetails = this.fragebogenService.getDetailview(detailview._frageId.toString(), detailview._heuristikId.toString()).subscribe(
       data => {
@@ -151,7 +165,8 @@ export class AuswertungComponent implements OnInit {
           let detailFragen = detailData[0].details
           let details = {
             detailFragen: detailFragen,
-            heuristikTitel: detailview.heuristikTitel
+            heuristikTitel: detailview.heuristikTitel,
+            frageTitel: detailview.frage
           }
           this.openDialog(details)
       },

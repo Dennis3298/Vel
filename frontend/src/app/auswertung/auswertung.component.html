@@ -1,20 +1,11 @@
 <div class="container-fluid">
   <app-header-view></app-header-view>
-  <div class="statistikContainer">
-
+  <div class="statistikContainer container-fluid">
     <div class="formBlock">
       <div class="header">
-        <h5 class="headline">Nach Antwort-Wert filtern</h5>
-        <!-- Search form -->
-        <form class="form-inline waves-light" mdbWavesEffect>
-          <div class="input-group input">
-            <input class="form-control mr-sm-2 control" #filterZahl type="number" placeholder="Antwort-Wert">
-            <span class="input-group-btn">
-              <button class="btn btn-primary" mdbWavesEffect type="submit" (click) = "onButtonStatistikClick(filterZahl)">Statistik</button>
-            </span>
-        </div>
-        </form>
+        <h5 class="headline">Verteilung der Antworten</h5>
       </div>
+
       <div style="display: block">
         <canvas id="statistik" mdbChart
         [chartType]="chartType"
@@ -26,34 +17,55 @@
         (chartClick)="chartClicked($event)">
         </canvas>
       </div>
-
-      <div *ngFor="let heuristikDetailview of detailviewList; let i = index">
-        <div class="mb-4 filterFragen">
-          <form class="form-inline">
-          <div class="container titel form-row">
-            <div class="col-9">
-             <!-- <h5>{{heuristikDetailview[0].heuristikTitel}}: {{heuristikDetailview[0].heuristikTitel}}</h5> -->
-            </div>
-            <div class="text-right col">
-              <button class="btn btn-info btn-circle pull-right" mdbWavesEffect type="submit">Info</button>
-           </div>
-          </div>
-        </form>
-        <div *ngFor="let detailview of heuristikDetailview; let j = index">
-          <form class="form-inline">
-            <div class="container fragen form-row">
-              <div class="col-9">
-                <p>{{detailview.frage}}</p>
-             </div>
-              <div class="text-right col">
-              <button class="btn-sm btn-primary" mdbWavesEffect type="submit" (click)= "onButtonDetailsClick(detailview)">Details</button>
-              </div>
-            </div>
-          </form>
-        </div>
-       </div>
+      <!-- <h5 class="headline">Threshold setzen:</h5>
+      <form class="form-inline waves-light" mdbWavesEffect>
+        <div class="input-group input">
+          <input class="form-control mr-sm-2 control" #filterVonZahl type="number" placeholder="Von">
+          <input class="form-control mr-sm-2 control" #filterBisZahl type="number" placeholder="Bis">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" mdbWavesEffect type="submit" (click) = "onButtonFilterClick(filterVonZahl,filterBisZahl)">Filtern</button>
+          </span>
       </div>
-  </div>
+      </form> -->
+    <div class="mb-4 filterFragen">
+      <div class="header">
+        <h5 class="headline">Antworten herausfiltern:</h5>
+      </div>
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let item of buttonsCounter">{{item.label}}</th>
+        </tr>
+        <tr>
+          <td *ngFor="let item of buttonsCounter; let i = index">
+              <mdb-checkbox class="checkboxBlock" [inline]="true" [default]="true" id="{{'checkbox'+i}}" (change)= "onCheckboxClick(item.id)"> </mdb-checkbox>
+          </td>
+        </tr>
+      </table>
+      <div class="header">
+        <h5 class="headline">Ergebnisse der Befragung</h5>
+      </div>
+      <div *ngFor="let heuristikDetailview of detailviewList; let i = index">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col-md-6">Frage</th>
+              <th scope="col">Heuristik</th>
+              <th scope="col">Antworten</th>
+              <th scope="col">Details</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let detailview of heuristikDetailview; let j = index">
+            <tr *ngIf="detailview.hide == false">
+              <td>{{detailview._frageId}}</td>
+              <td>{{detailview._heuristikId}}</td>
+              <td>{{detailview.frageAntwort}}</td>
+              <td><button class="btn-sm btn-primary" mdbWavesEffect type="submit" (click)= "onButtonDetailsClick(detailview)">Details</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
   </div>
   <app-footer-view></app-footer-view>
 </div>

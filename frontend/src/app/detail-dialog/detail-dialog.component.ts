@@ -12,6 +12,7 @@ import Frage from '../Models/frage';
 export class DetailDialogComponent{
 
   detailFragen: string[]
+  frageTitel: string
   heuristikTitel: string
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fragebogenService: FragebogenService) {
@@ -20,6 +21,7 @@ export class DetailDialogComponent{
   ngOnInit() {
     this.detailFragen = this.data.details.detailFragen
     this.heuristikTitel = this.data.details.heuristikTitel
+    this.frageTitel = this.data.details.frageTitel
 
     console.log(this.detailFragen)
     console.log(this.heuristikTitel)

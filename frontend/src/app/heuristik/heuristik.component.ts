@@ -48,7 +48,7 @@ export class HeuristikComponent implements OnInit {
       { id: 5, label: '5'},
       { id: 6, label: '6'},
       { id: 7, label: '7'},
-      { id: 0, label: 'k.A.'}
+      { id: 8, label: 'k.A.'}
     ]
 
 

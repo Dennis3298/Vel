@@ -17,13 +17,13 @@ button{
 }
 
 #statistik{
-  max-width: 75vw;
-  min-width: 75vw;
+  // max-width: 75vw;
+  // min-width: 75vw;
 
   border-style: solid;
   border-width: thin;
 
-  margin: 5px 0px 10px 5px;
+  margin: 10px 0px 10xp 0px;
   background-color: white;
 
 }
@@ -36,9 +36,7 @@ button{
   border-style: solid;
   border-width: thin;
   background-color: white;
-  margin: 5px;
-  max-width: 75vw;
-  min-width: 75vw;
+  margin: 10px 0px 10px 0px;
 }
 
 .titel{
@@ -60,5 +58,39 @@ button{
 
 h5{
   overflow-wrap:break-word;
+}
+
+// table, th, td {
+//   border: 1px solid black;
+// }
+// table {
+//   width: 100%;
+//   margin: 10px 0px 10px 0px;
+// }
+
+// th{
+//   background-color: rgb(102, 196, 251);
+// }
+
+// th, td{
+//   text-align: center;
+// }
+table
+{
+  table-layout:fixed;
+  width:100%;
+}
+th,td{
+  overflow-wrap:break-word;
+}
+
+th{
+  background-color: rgb(102, 196, 251);
+}
+
+#checkboxBlock{
+  cursor: pointer;
+  display: block;
+  text-align: center;
 }
 
