@@ -6,6 +6,7 @@ export default class Frage{
   antworten: [Antwort]
   anzahlAntworten: number[]
   notiz: String
+  detailNotiz: String
 
   constructor(){
     this.antworten = [new Antwort]

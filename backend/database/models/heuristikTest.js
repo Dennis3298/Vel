@@ -27,6 +27,10 @@ const FrageSchema = new mongoose.Schema({
     notiz: {
         type: String,
         required: false
+    },
+    detailNotiz:{
+        type: String,
+        required: false
     }
 })
 

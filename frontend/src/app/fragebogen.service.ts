@@ -5,6 +5,7 @@ import Fragebogen from './Models/fragebogen';
 import Heuristik from './Models/heuristik';
 import { forkJoin, Observable } from 'rxjs';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
+import Frage from './Models/frage';
 
 @Injectable({
   providedIn: 'root'
@@ -50,8 +51,11 @@ export class FragebogenService {
     return this.webService.get('detailview/' + _heuristikId + '/' + _frageId)
   }
 
-  updateHeuristik(_heuristikId: string, _fragebogenId: string, _frageId: string, updateNotiz: string){
-    return this.webService.patch('frageboegen/' + _fragebogenId + '/heuristiken/' + _heuristikId + '/' + _frageId, updateNotiz)
+  updateHeuristik(_heuristikId: string, _fragebogenId: string, _frageId: string, updateNotiz: String){
+    const update = {
+      detailNotiz: updateNotiz
+    }
+    return this.webService.patch('frageboegen/' + _fragebogenId + '/heuristiken/' + _heuristikId + '/' + _frageId, update)
   }
 
 }

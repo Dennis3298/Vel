@@ -6,6 +6,8 @@ import { FragebogenService } from '../fragebogen.service';
 import {MatDialog} from '@angular/material/dialog';
 import { DetailDialogComponent } from '../detail-dialog/detail-dialog.component';
 import { element } from 'protractor';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -27,11 +29,14 @@ export class AuswertungComponent implements OnInit {
   details: Object
 
   buttonsCounter: Object
-
   filterCounter: Array<number>
 
+  routeSub: Subscription
 
-  constructor(private fragebogenService: FragebogenService, public dialog: MatDialog) {
+  constructor(private fragebogenService: FragebogenService,
+               public dialog: MatDialog,
+               private router: Router,
+               private route: ActivatedRoute,) {
       this.heuristikList = new Array
       this.heuristikList = history.state.heuristikList
       this.detailviewList = [[new Detailview]]
@@ -186,19 +191,22 @@ export class AuswertungComponent implements OnInit {
   }
 
   onButtonDetailsClick(detailview: Detailview){
-    // let dataDetail = {
-    //   a: "_heuristikId",
-    //   b: "_frageId",
-    // };
-
     let getDetails = this.fragebogenService.getDetailview(detailview._frageId.toString(), detailview._heuristikId.toString()).subscribe(
       data => {
+        let _fragebogenId
+        this.routeSub = this.route.params.subscribe(params => {
+          console.log(params) //log the entire params object
+          _fragebogenId = params['id'] //log the value of id
+        });
           let detailData = data as Object
           let detailFragen = detailData[0].details
           let details = {
             detailFragen: detailFragen,
             heuristikTitel: detailview.heuristikTitel,
-            frageTitel: detailview.frage
+            frageTitel: detailview.frage,
+            _frageId: detailview._frageId,
+            _heuristikId: detailview._heuristikId,
+            _fragebogenId: _fragebogenId
           }
           this.openDialog(details)
       },

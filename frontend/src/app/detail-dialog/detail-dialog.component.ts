@@ -28,10 +28,11 @@ export class DetailDialogComponent{
   }
 
   onButtonSaveClick(notizen: any){
-    let _heuristikId
-    let _frageId
-    let _fragebogenId
+    let _heuristikId = this.data.details._heuristikId
+    let _frageId = this.data.details._frageId
+    let _fragebogenId = this.data.details._fragebogenId
     this.fragebogenService.updateHeuristik(_heuristikId, _fragebogenId, _frageId, notizen )
+
   }
 
 }
