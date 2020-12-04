@@ -106,7 +106,7 @@ app.post('/frageboegen/:fragebogenId/heuristiken', (req, res) => {
 
 //Bestimmte Heuristik nach ID finden
 app.get('/frageboegen/:fragebogenId/heuristiken/:heuristikId', (req,res) => {
-    HeuristikTest.find({ _id: req.params.heuristikId})
+    HeuristikTest.find({ _heuristikId: req.params.heuristikId})
         .then(heuristik => res.send(heuristik))
         .catch((error) => console.log(error))
 })
@@ -119,13 +119,21 @@ app.delete('/frageboegen/:fragebogenId/heuristiken/:heuristikId', (req, res) => 
 })
 
 //Bestimmte Heuristik aktualisieren
-app.patch('/frageboegen/:fragebogenId/heuristiken/:_heuristikId/:_frageId', (req, res) => {
-    console.log("Test Update")
-    HeuristikTest.findOneAndUpdate({
+app.patch('/frageboegen/:fragebogenId/heuristiken/:heuristikId/:frageId', (req, res) => {
+    console.log(req.params.frageId)
+    console.log(req.params.heuristikId)
+    console.log(req.params.fragebogenId)
+    console.log(req.body)
+    HeuristikTest.updateOne({
         '_fragebogenId' : req.params.fragebogenId,
-        '_heuristikId': req.params.heuristikId,
-        '_frageId': req.params.frageId
-    }, {$set: req.body})
+        '_heuristikId': req.params.heuristikId
+    }, {
+        '$set': {'fragen.$[i].detailNotiz':req.body.detailNotiz}
+    },{
+        arrayFilters: [
+            {"i._frageId": req.params.frageId}
+        ]
+    })
         .then(heuristik => res.send(heuristik))
         .catch((error) => console.log(error))
 })
@@ -135,15 +143,7 @@ app.patch('/frageboegen/:fragebogenId/heuristiken/:_heuristikId/:_frageId', (req
 /*******************Detailview*********************/
 
 //bestimmte Detailview bekommen
-app.get('/detailview', (req, res) => {
-    console.log('lol')
-    Detailview.find({}).then(details => res.send(details))
-     .catch((error) => console.log(error))
-})
-
-//alle details bekommen
 app.get('/detailview/:_heuristikId/:_frageId', (req, res) => {
-    console.log(req.params._frageId)
     Detailview.find({
         _frageId: req.params._frageId,
         _heuristikId: req.params._heuristikId

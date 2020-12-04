@@ -31,8 +31,8 @@ export class DetailDialogComponent{
     let _heuristikId = this.data.details._heuristikId
     let _frageId = this.data.details._frageId
     let _fragebogenId = this.data.details._fragebogenId
-    this.fragebogenService.updateHeuristik(_heuristikId, _fragebogenId, _frageId, notizen )
-
+    this.fragebogenService.updateHeuristik(_heuristikId, _fragebogenId, _frageId, notizen.value).subscribe()
+    
   }
 
 }

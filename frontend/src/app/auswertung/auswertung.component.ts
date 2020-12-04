@@ -32,6 +32,7 @@ export class AuswertungComponent implements OnInit {
   filterCounter: Array<number>
 
   routeSub: Subscription
+  isInList: boolean
 
   constructor(private fragebogenService: FragebogenService,
                public dialog: MatDialog,
@@ -131,10 +132,12 @@ export class AuswertungComponent implements OnInit {
     heuristikDetails.splice(0)
     this.heuristikList.forEach(heuristik => {
        heuristik.fragen.forEach(frage => {
+        let isInList = false
          for(let i=1; i<9;i++){
           frage.antworten.forEach(antwort => {
             if(antwort.wert == i){
               data[i-1] += 1
+              if(isInList == false){
               let detail: Detailview = new Detailview
               detail.frage = frage.frage
               detail._frageId = frage._frageId
@@ -144,7 +147,9 @@ export class AuswertungComponent implements OnInit {
               detail._heuristikId = heuristik._heuristikId
               detail.heuristikTitel = heuristik.titel
               heuristikDetails.push(detail)
+              isInList = true
               }
+            }
            });
          }
        });
