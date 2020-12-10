@@ -8,6 +8,9 @@ const AntwortSchema = new mongoose.Schema({
     _antwortId: {
         type: String,
         required: true
+    },
+    beschreibung: {
+        type: String
     }
 })
 

@@ -24,6 +24,7 @@ export class HeuristikComponent implements OnInit {
 
   fragebogenId: string
   routeSub: Subscription
+
   constructor(
       private fragebogenService: FragebogenService,
       private router: Router,
@@ -50,7 +51,6 @@ export class HeuristikComponent implements OnInit {
       { id: 7, label: '7'},
       { id: 8, label: 'k.A.'}
     ]
-
 
     //Bestimmen welche Heuristiken displayed werden
     this.checkForHeuristiken("HEU1", "Nachvollziehbarkeit und Feedback zur Aufgabenbearbeitung")
@@ -122,6 +122,9 @@ export class HeuristikComponent implements OnInit {
    for(let i = 0; i < frage.antworten.length; i++) {
     if (frage.antworten[i]._antwortId == _antwortId) {
         frage.antworten[i].wert = wert
+        if(frage.antworten[i].beschreibung == "Standardbeschreibung" && Number(_antwortId) != 0){
+            frage.antworten[i].beschreibung == "Zusatzskala: " + _antwortId
+        }
         found = true;
         break;
       }
@@ -130,6 +133,7 @@ export class HeuristikComponent implements OnInit {
       this.frageAntwort = new Antwort
       this.frageAntwort._antwortId = _antwortId
       this.frageAntwort.wert = wert
+      if(Number(_antwortId) != 0) this.frageAntwort.beschreibung = "Zusatzskala: " + _antwortId
       frage.antworten.push(this.frageAntwort)
     }
   }
@@ -145,6 +149,30 @@ export class HeuristikComponent implements OnInit {
        }
      }
     }
+  }
+
+  checkIfAntwortExistsAndEdit(_antwortId: string, frage: Frage, beschreibung: String){
+    let found = false
+    for(let i = 0; i < frage.antworten.length; i++) {
+      if (frage.antworten[i]._antwortId == _antwortId) {
+          frage.antworten[i].beschreibung = beschreibung
+          found = true
+          break
+        }
+    }
+    if(!found){
+      this.frageAntwort = new Antwort
+      this.frageAntwort._antwortId = _antwortId
+      if(beschreibung != null){
+        this.frageAntwort.beschreibung = beschreibung
+      }
+      frage.antworten.push(this.frageAntwort)
+    }
+      console.log(frage)
+  }
+
+  antwortBeschreibungFocusOutFunction(_antwortId: string, frage: Frage, beschreibung: String){
+    this.checkIfAntwortExistsAndEdit(_antwortId, frage, beschreibung)
   }
 
   fillFragen(fragen: String[], _heuristikId: String){

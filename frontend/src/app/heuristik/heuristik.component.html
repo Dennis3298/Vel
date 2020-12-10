@@ -8,18 +8,31 @@
               <div class="form-row">
                 <h5 class="text-center" id="frage">{{frage.frage}}</h5>
               </div>
-              <table *ngFor="let a of frage.anzahlAntworten; let k = index">
-                <tr>
-                  <th *ngFor="let item of buttonsCounter">{{item.label}}</th>
-                </tr>
-                <tr>
-                  <td *ngFor="let button of buttonsCounter; let l = index">
-                    <label id="radioButtonBlock" for="{{'radioButton'+i+j+k+l}}">
-                      <input type="radio" class="likertValue" id="{{'radioButton'+i+j+k+l}}" required (change)= "onRadiobuttonClick(button.id,k,frage)" value={{button.id}}  name="{{'frageAntwort'+i+j+k}}">
-                    </label>
-                  </td>
-                </tr>
-              </table>
+              <!-- a steht hier nur für die Möglichkeit Skalen zu adden oder zu removen und hat sonst keinen Mehrwert-->
+              <div *ngFor="let a of frage.anzahlAntworten; let k = index">
+                
+                <div *ngIf="k > 0">
+                  <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-sm">Beschreibung</span>
+                    </div>
+                    <input type="text" class="form-control"  #beschreibung (focusout)= "antwortBeschreibungFocusOutFunction(k,frage, beschreibung.value)" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+                </div>
+
+                <table>
+                  <tr>
+                    <th *ngFor="let item of buttonsCounter">{{item.label}}</th>
+                  </tr>
+                  <tr>
+                    <td *ngFor="let button of buttonsCounter; let l = index">
+                      <label id="radioButtonBlock" for="{{'radioButton'+i+j+k+l}}">
+                        <input type="radio" class="likertValue" id="{{'radioButton'+i+j+k+l}}" required (change)= "onRadiobuttonClick(button.id,k,frage)" value={{button.id}}  name="{{'frageAntwort'+i+j+k}}">
+                      </label>
+                    </td>
+                  </tr>
+                </table>
+              </div>
               <label for="exampleFormControlTextarea2">Notizen</label>
               <textarea class="form-control rounded-0" [(ngModel)]="frage.notiz" id="notizTextFeld" rows="3"></textarea>
 

@@ -73,3 +73,16 @@ th{
 #saveButton{
   margin: 0px 15px 15px 15px;
 }
+
+.ng-inline-edit__input {
+  border-bottom: 1px dashed #333;
+}
+
+.ng-inline-edit--error .ng-inline-edit__input {
+  border-color: #f00;
+}
+
+.ng-inline-edit__button {
+  color: #00f;
+  margin-left: 5px;
+}
