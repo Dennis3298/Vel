@@ -152,5 +152,6 @@ app.get('/detailview/:_heuristikId/:_frageId', (req, res) => {
      .catch((error) => console.log(error))
 })
 
+// In Etwa: find => Beartbeiten => Update (Zusatzanforderung: Bearbeiten von alten Bögen)
 
 app.listen(3000, () => console.log("Server is connected on port 3000"))

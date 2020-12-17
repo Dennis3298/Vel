@@ -10,8 +10,8 @@
               </div>
               <!-- a steht hier nur für die Möglichkeit Skalen zu adden oder zu removen und hat sonst keinen Mehrwert-->
               <div *ngFor="let a of frage.anzahlAntworten; let k = index">
-                
-                <div *ngIf="k > 0">
+
+                <div *ngIf="frage.anzahlAntworten.length > 1">
                   <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm">Beschreibung</span>
@@ -39,6 +39,7 @@
             <div class="btn-group">
               <button type="button" class="btn btn-success btn-lg tableAddButton" (click) = "onTableAddClick(frage);"> + </button>
               <button type="button" class="btn btn-danger btn-lg tableRemoveButton" (click) = "onTableRemoveClick(frage);"> - </button>
+              <button class="btn-sm btn-primary" mdbWavesEffect type="submit" (click)= "onButtonDetailsClick(heuristik, frage)">Details</button>
            </div>
 
           </div>

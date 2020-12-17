@@ -211,7 +211,8 @@ export class AuswertungComponent implements OnInit {
             frageTitel: detailview.frage,
             _frageId: detailview._frageId,
             _heuristikId: detailview._heuristikId,
-            _fragebogenId: _fragebogenId
+            _fragebogenId: _fragebogenId,
+            isFragebogen: false
           }
           this.openDialog(details)
       },

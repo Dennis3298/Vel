@@ -3,6 +3,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Output, EventEmitter} from '@angular/core';
 import {FragebogenService} from '../fragebogen.service'
 import Frage from '../Models/frage';
+import { ReturnStatement } from '@angular/compiler';
 
 @Component({
   selector: 'app-detail-dialog',
@@ -14,8 +15,12 @@ export class DetailDialogComponent{
   detailFragen: string[]
   frageTitel: string
   heuristikTitel: string
+  detailNotiz: string
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fragebogenService: FragebogenService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              private fragebogenService: FragebogenService,
+              public matDialogRef: MatDialogRef<DetailDialogComponent>) {
+                this.matDialogRef.beforeClosed().subscribe(() => matDialogRef.close(this.detailNotiz));
   }
 
   ngOnInit() {
@@ -31,8 +36,14 @@ export class DetailDialogComponent{
     let _heuristikId = this.data.details._heuristikId
     let _frageId = this.data.details._frageId
     let _fragebogenId = this.data.details._fragebogenId
-    this.fragebogenService.updateHeuristik(_heuristikId, _fragebogenId, _frageId, notizen.value).subscribe()
-    
+    if(!this.data.details.isFragebogen){
+      this.fragebogenService.updateHeuristik(_heuristikId, _fragebogenId, _frageId, notizen.value).subscribe()
+    }
+    else{
+      this.detailNotiz = notizen.value
+      this.matDialogRef.close()
+    }
+
   }
 
 }

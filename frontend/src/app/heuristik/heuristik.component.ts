@@ -6,6 +6,8 @@ import Antwort from '../Models/antwort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FragebogenService } from '../fragebogen.service';
 import { Subscription } from 'rxjs';
+import { DetailDialogComponent } from '../detail-dialog/detail-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -29,7 +31,7 @@ export class HeuristikComponent implements OnInit {
       private fragebogenService: FragebogenService,
       private router: Router,
       private route: ActivatedRoute,
-
+      public dialog: MatDialog
     ) {
 
     //benötigte Objekte initialisieren
@@ -173,6 +175,46 @@ export class HeuristikComponent implements OnInit {
 
   antwortBeschreibungFocusOutFunction(_antwortId: string, frage: Frage, beschreibung: String){
     this.checkIfAntwortExistsAndEdit(_antwortId, frage, beschreibung)
+  }
+
+  onButtonDetailsClick(heuristik: Heuristik, frage: Frage){
+    let getDetails = this.fragebogenService.getDetailview(frage._frageId.toString(), heuristik._heuristikId.toString()).subscribe(
+      data => {
+        let _fragebogenId
+        this.routeSub = this.route.params.subscribe(params => {
+          console.log(params) //log the entire params object
+          _fragebogenId = params['id'] //log the value of id
+        });
+          let detailData = data as Object
+          let detailFragen = detailData[0].details
+          let details = {
+            detailFragen: detailFragen,
+            heuristikTitel: heuristik.titel,
+            frageTitel: frage.frage,
+            _frageId: frage._frageId,
+            _heuristikId: heuristik._heuristikId,
+            _fragebogenId: _fragebogenId,
+            isFragebogen: true
+          }
+          this.openDialog(details, frage)
+      },
+      err => {
+        console.log(err);
+      })
+  }
+
+  openDialog(details: Object, frage: Frage){
+    try{
+      const dialogRef = this.dialog.open(DetailDialogComponent, {
+        data: {details : details}
+      })
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+        frage.detailNotiz = result
+      });
+
+    }catch(e){console.log(e)}
   }
 
   fillFragen(fragen: String[], _heuristikId: String){
