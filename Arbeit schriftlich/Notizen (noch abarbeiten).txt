@@ -1,6 +1,6 @@
-- keine 3 Überschriften sollen aufeinander folgen
-- relevanz der Technik für die Arbeit muss klarer werden (warum ist Angular bzw. die einzelnen Aspekte gerade für mich interessant)
+- keine 3 Überschriften sollen aufeinander folgen (check)
+- relevanz der Technik für die Arbeit muss klarer werden (warum ist Angular bzw. die einzelnen Aspekte gerade für mich interessant) (check)
 - flussdiagramm einleiten und nicht random reinklatschen
 - Anforderungsermittlung braucht Text und Tabelle soll als Zusammenfassung dienen 
-- warum für Personas entschieden ? (einleitender Text im Kapitel)
+- warum für Personas entschieden ? (einleitender Text im Kapitel) (check)
 ALLGEMEIN: roter Faden muss sich durch die Arbeit ziehen 
