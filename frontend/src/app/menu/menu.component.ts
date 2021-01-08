@@ -16,6 +16,10 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/frageboegen'])
   }
 
+  onErgebnisseClick(): void{
+    this.router.navigate(['/frageboegenListe'])
+  }
+
   ngOnInit(): void {
   }
 

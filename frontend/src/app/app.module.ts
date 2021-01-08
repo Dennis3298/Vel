@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { AuswertungComponent } from './auswertung/auswertung.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailDialogComponent } from './detail-dialog/detail-dialog.component';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import { FragebogenListeComponent } from './fragebogen-liste/fragebogen-liste.component';
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
     HeuristikComponent,
     AuswertungComponent,
     DetailDialogComponent,
+    FragebogenListeComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    CommonModule
   ],
   entryComponents:[
     DetailDialogComponent

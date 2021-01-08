@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+
 const TeilnehmerSchema = new mongoose.Schema({
     age:{
         type: Number,
@@ -30,7 +31,8 @@ const FragebogenSchema = new mongoose.Schema({
     },
     teilnehmer: [TeilnehmerSchema],
     datum: {
-        type: Date
+        type: Date,
+        required: true
     }
 })
 

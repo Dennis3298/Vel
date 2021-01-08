@@ -3,7 +3,7 @@
   <div class="heuristikContainer">
     <div class="form-row">
       <div id="heuristik" class="container-fluid" *ngFor="let heuristik of heuristikList;let i = index">
-            <h4 id="titel">{{heuristik.titel }}</h4>
+            <h4 id="titel"> <u>Heuristik: {{heuristik.titel }}</u></h4>
             <div class="content" *ngFor="let frage of heuristik.fragen;let j = index">
               <div class="form-row">
                 <h5 class="text-center" id="frage">{{frage.frage}}</h5>
@@ -36,18 +36,21 @@
               <label for="exampleFormControlTextarea2">Notizen</label>
               <textarea class="form-control rounded-0" [(ngModel)]="frage.notiz" id="notizTextFeld" rows="3"></textarea>
 
-            <div class="btn-group">
-              <button type="button" class="btn btn-success btn-lg tableAddButton" (click) = "onTableAddClick(frage);"> + </button>
-              <button type="button" class="btn btn-danger btn-lg tableRemoveButton" (click) = "onTableRemoveClick(frage);"> - </button>
-              <button class="btn-sm btn-primary" mdbWavesEffect type="submit" (click)= "onButtonDetailsClick(heuristik, frage)">Details</button>
-           </div>
+              <div class="row tableButton">
+                  <button class="btn btn-info" (click)="frage.showOptions=!frage.showOptions">Optionen</button>
+              </div>
 
+              <div class="btn-group" *ngIf="frage.showOptions">
+                <button type="button" class="btn btn-success btn-sm tableButton" (click) = "onTableAddClick(frage);"> Skala + </button>
+                <button type="button" class="btn btn-danger btn-sm tableButton" (click) = "onTableRemoveClick(frage);"> Skala - </button>
+                <button type="button" class="btn btn-secondary btn-sm tableButton"  (click)= "onButtonDetailsClick(heuristik, frage)">Detailfragen</button>
+              </div>
           </div>
       </div>
     </div>
 
     <div class="row-form justify-content">
-      <button type="button" class="btn btn-primary btn-lg" id="saveButton" (click) = "onButtonSaveClick();">Save</button>
+      <button type="button" class="btn btn-primary btn-lg" id="saveButton" (click) = "onButtonSaveClick();">Weiter</button>
     </div>
   </div>
   <app-footer-view></app-footer-view>

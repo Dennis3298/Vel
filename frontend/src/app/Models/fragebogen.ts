@@ -1,4 +1,5 @@
 import Teilnehmer from "./teilnehmer"
+import {formatDate} from '@angular/common';
 
 export default class Fragebogen{
   _id: String
@@ -8,5 +9,10 @@ export default class Fragebogen{
   datum: Date
   heuristiken: [String]
   teilnehmer: Teilnehmer
-}
+  show: boolean
 
+  constructor(){
+    this.datum = new Date()
+    this.show = true;
+  }
+}

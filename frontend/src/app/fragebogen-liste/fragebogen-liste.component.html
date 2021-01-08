@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <app-header-view></app-header-view>
+
+  <div class="listContainer">
+    <div id="searchBar">
+      <form>
+        <div class="form-row">
+          <div class="col-8">
+            <div class="md-form mt-0">
+              <input type="text" class="form-control" placeholder="Suchen" #input (keyup.enter)="onSubmitFilter(input.value)">
+            </div>
+          </div>
+          <div class="col">
+            <select class="form-control" (change)="onChangeSelectedValue($event)">
+              <option selected value="0">Filter</option>
+              <option value="1">Titel</option>
+              <option value="2">Interviewer (Vor- oder Nachname)</option>
+              <option value="3">Heuristik</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary btn-sm tableButton optionButtons" (click)="onRowDblClick(selectedFragebogen)" [disabled]="enableButtons">Öffnen</button>
+        <button type="button" class="btn btn-danger btn-sm tableButton optionButtons" (click)="onDeleteClick(selectedFragebogen)" [disabled]="enableButtons">Löschen</button>
+        <button type="button" class="btn btn-info btn-sm tableButton optionButtons" (click)="onEditClick(selectedFragebogen)" [disabled]="enableButtons">Bearbeiten</button>
+      </div>
+    <div class="tableDiv">
+      <table class="table table-sm table-bordered table-hover">
+        <thead>
+          <tr>
+            <th scope="col-md-6">Titel</th>
+            <th scope="col">Interviewer</th>
+            <th scope="col">Heuristiken</th>
+            <th scope="col">Datum</th>
+          </tr>
+        </thead>
+        <tbody>
+          <div *ngFor="let fragebogen of fragebogenList; let j = index">
+            <tr id="tableRow" *ngIf="fragebogen.show == true" (dblclick)="onRowDblClick(fragebogen._id)" (click)="onRowClick(fragebogen)"
+            [ngClass]="{'highlightRow': fragebogen._id.toString() === selectedFragebogen}">
+              <td>{{fragebogen.titel}}</td>
+              <td>{{fragebogen.interviewerFirstName}} {{fragebogen.interviewerLastName}}</td>
+              <td>{{fragebogen.heuristiken}}</td>
+              <td>{{fragebogen.datum}}</td>
+            </tr>
+          </div>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <app-footer-view></app-footer-view>
+</div>

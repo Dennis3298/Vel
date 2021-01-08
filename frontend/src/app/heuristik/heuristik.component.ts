@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './heuristik.component.html',
   styleUrls: ['./heuristik.component.scss']
 })
+
 export class HeuristikComponent implements OnInit {
 
   heuristikList: Array<Heuristik>

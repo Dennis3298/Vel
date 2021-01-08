@@ -5,7 +5,6 @@ import Detailview from '../Models/detailview'
 import { FragebogenService } from '../fragebogen.service';
 import {MatDialog} from '@angular/material/dialog';
 import { DetailDialogComponent } from '../detail-dialog/detail-dialog.component';
-import { element } from 'protractor';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 

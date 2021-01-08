@@ -14,9 +14,17 @@ export class FragebogenService {
 
   constructor(private webService: WebService) { }
 
-  // getFrageboegen(){
-  //   return this.webService.get('frageboegen')
-  // }
+  getFrageboegen(){
+    return this.webService.get('frageboegen')
+  }
+
+  deleteFragebogen(fragebogenId: string){
+    return this.webService.delete(`frageboegen/${fragebogenId}`)
+  }
+
+  getHeuristiken(fragebogenId: string){
+    return this.webService.get(`frageboegen/${fragebogenId}/heuristiken`)
+  }
 
   createFragebogen(fragebogen: Fragebogen){
     return this.webService.post('frageboegen', {
@@ -25,7 +33,7 @@ export class FragebogenService {
         interviewerLastName: fragebogen.interviewerLastName,
         teilnehmer: fragebogen.teilnehmer,
         heuristiken: fragebogen.heuristiken,
-        datum: new Date()
+        datum: fragebogen.datum
     })
   }
 

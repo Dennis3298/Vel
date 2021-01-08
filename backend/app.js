@@ -32,7 +32,8 @@ app.post('/frageboegen', (req, res) => {
         'heuristiken': req.body.heuristiken,
         'interviewerFirstName': req.body.interviewerFirstName,
         'interviewerLastName': req.body.interviewerLastName,
-        'teilnehmer': req.body.teilnehmer
+        'teilnehmer': req.body.teilnehmer,
+        'datum' : req.body.datum
     }))
         .save()
         .then((fragebogen) => res.send(fragebogen))

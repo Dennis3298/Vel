@@ -24,6 +24,6 @@ export class WebService {
   }
 
   delete(uri: String){
-    return this.http.get(`${this.ROOT_URL}/${uri}`)
+    return this.http.delete(`${this.ROOT_URL}/${uri}`)
   }
 }

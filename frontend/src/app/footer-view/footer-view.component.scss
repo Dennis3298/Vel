@@ -1,6 +1,12 @@
 @import "../../../node_modules/bootstrap-scss/";
 
-.bot-section{
-  min-height: 5vh;
+p{
   color: white;
+  margin: 10px;
+  font-size: 10px;
+}
+
+div{
+  height: 5%;
+  min-height: 5vh;
 }
