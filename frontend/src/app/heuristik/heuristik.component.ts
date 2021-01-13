@@ -28,6 +28,8 @@ export class HeuristikComponent implements OnInit {
   fragebogenId: string
   routeSub: Subscription
 
+  isEdit: Boolean
+
   constructor(
       private fragebogenService: FragebogenService,
       private router: Router,
@@ -55,6 +57,7 @@ export class HeuristikComponent implements OnInit {
       { id: 8, label: 'k.A.'}
     ]
 
+    if(this.fragebogen != null){
     //Bestimmen welche Heuristiken displayed werden
     this.checkForHeuristiken("HEU1", "Nachvollziehbarkeit und Feedback zur Aufgabenbearbeitung")
     this.checkForHeuristiken("HEU2", "Von der Flexibilität der Vorgehensweisen zur gemeinsamen Weiterentwicklung des Systems")
@@ -67,6 +70,27 @@ export class HeuristikComponent implements OnInit {
 
     console.log(this.heuristikList)
     console.log(this.fragebogen)
+    }
+    else {
+      this.heuristikList = history.state.heuristikList
+      if(this.heuristikList == null){
+        alert("Daten nicht vorhanden!")
+      }else{
+        this.isEdit = true
+        this.heuristikList.forEach(heuristik => {
+            heuristik.fragen.forEach(frage => {
+              frage.anzahlAntworten = new Array
+              frage.anzahlAntworten.splice(0)
+              frage.antworten.forEach(antwort => {
+                //Für jede Antwort soll frage.anzahlAntwort einmal erhöht werden
+                frage.anzahlAntworten = new Array(frage.anzahlAntworten.length+1)
+              });
+            });
+        });
+      }
+    }
+
+
   }
 
 
@@ -105,13 +129,21 @@ export class HeuristikComponent implements OnInit {
     });
   }
 
-  onTableAddClick(frage: Frage){
+  onTableAddClick(frage: Frage, antwortId: string){
     frage.anzahlAntworten = new Array(frage.anzahlAntworten.length+1)
+    frage.antworten.forEach(antwort => {
+      if(antwort.beschreibung == null){
+        antwort.beschreibung == "Beschreibung der Skala: " + frage.antworten.indexOf(antwort)
+      }
+    });
   }
 
   onButtonSaveClick(){
     console.log(this.heuristikList)
     console.log(this.fragebogenId)
+    if(this.isEdit){
+        this.fragebogenService.deleteHeuristiken(this.fragebogenId).subscribe()
+    }
 
     this.fragebogenService.createHeuristik(this.heuristikList, this.fragebogenId).subscribe(
       (heuristikList: Heuristik[]) => {
@@ -216,6 +248,14 @@ export class HeuristikComponent implements OnInit {
       });
 
     }catch(e){console.log(e)}
+  }
+
+  isCorrectAnswerToBeChecked(antworten: [Antwort],index: number, buttonWert: number){
+    if(antworten[index] != null){
+      if(antworten[index].wert == buttonWert){
+        return true
+      }else return false
+    } return false
   }
 
   fillFragen(fragen: String[], _heuristikId: String){

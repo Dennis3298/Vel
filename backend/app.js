@@ -105,12 +105,22 @@ app.post('/frageboegen/:fragebogenId/heuristiken', (req, res) => {
     .catch((error) => console.log(error))
 }) 
 
+
+app.delete('/frageboegen/:fragebogenId/heuristiken', (req, res) =>{
+    Heuristik.deleteMany(
+        {_fragebogenId:req.params.fragebogenId}
+    )
+    .then(heuristiken => res.send(heuristiken))
+    .catch((error) => console.log(error))
+})
+
 //Bestimmte Heuristik nach ID finden
 app.get('/frageboegen/:fragebogenId/heuristiken/:heuristikId', (req,res) => {
     Heuristik.find({ _heuristikId: req.params.heuristikId})
         .then(heuristik => res.send(heuristik))
         .catch((error) => console.log(error))
 })
+
 
 //Bestimmte Heuristik nach ID löschen
 app.delete('/frageboegen/:fragebogenId/heuristiken/:heuristikId', (req, res) => {

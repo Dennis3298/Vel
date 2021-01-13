@@ -8,17 +8,17 @@
               <div class="form-row">
                 <h5 class="text-center" id="frage">{{frage.frage}}</h5>
               </div>
-              <!-- a steht hier nur für die Möglichkeit Skalen zu adden oder zu removen und hat sonst keinen Mehrwert-->
+              <!-- a steht hier nur für die Möglichkeit Skalen zu adden oder zu removen und hat keinen sonstigen Mehrwert-->
               <div *ngFor="let a of frage.anzahlAntworten; let k = index">
-
-                <div *ngIf="frage.anzahlAntworten.length > 1">
+                <ng-container *ngIf="frage.anzahlAntworten.length > 1">
                   <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm">Beschreibung</span>
                     </div>
-                    <input type="text" class="form-control"  #beschreibung (focusout)= "antwortBeschreibungFocusOutFunction(k,frage, beschreibung.value)" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" class="form-control"  #beschreibung  [ngModel]="frage.antworten[k]?.beschreibung != null ? frage.antworten[k].beschreibung : ''"  (focusout)="antwortBeschreibungFocusOutFunction(k,frage, beschreibung.value)" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                   </div>
-                </div>
+                </ng-container>
+
 
                 <table>
                   <tr>
@@ -27,7 +27,7 @@
                   <tr>
                     <td *ngFor="let button of buttonsCounter; let l = index">
                       <label id="radioButtonBlock" for="{{'radioButton'+i+j+k+l}}">
-                        <input type="radio" class="likertValue" id="{{'radioButton'+i+j+k+l}}" required (change)= "onRadiobuttonClick(button.id,k,frage)" value={{button.id}}  name="{{'frageAntwort'+i+j+k}}">
+                        <input type="radio" class="likertValue" id="{{'radioButton'+i+j+k+l}}" [checked]="isCorrectAnswerToBeChecked(frage.antworten, k , button.id)" (change)="onRadiobuttonClick(button.id,k,frage)" value={{button.id}}  name="{{'frageAntwort'+i+j+k}}">
                       </label>
                     </td>
                   </tr>

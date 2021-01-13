@@ -22,6 +22,14 @@ export class FragebogenService {
     return this.webService.delete(`frageboegen/${fragebogenId}`)
   }
 
+  deleteHeuristik(fragebogenId: string, heursitikId: string){
+    return this.webService.delete(`frageboegen/${fragebogenId}/heuristiken/${heursitikId}`)
+  }
+
+  deleteHeuristiken(fragebogenId: string){
+    return this.webService.delete(`frageboegen/${fragebogenId}/heuristiken`)
+  }
+
   getHeuristiken(fragebogenId: string){
     return this.webService.get(`frageboegen/${fragebogenId}/heuristiken`)
   }

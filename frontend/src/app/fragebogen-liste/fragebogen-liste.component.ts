@@ -126,7 +126,17 @@ export class FragebogenListeComponent implements OnInit {
 
 
   onEditClick(fragebogenId: string){
+    let heuristikList: Array<Heuristik>
+    heuristikList = new Array
+    heuristikList.splice(0)
 
+    this.fragebogenService.getHeuristiken(fragebogenId)
+    .subscribe((heuristiken:Array<Heuristik>) => {
+      heuristiken.forEach(heuristik => {
+        heuristikList.push(heuristik)
+      });
+      this.router.navigate(['/frageboegen', fragebogenId], {state: {heuristikList}})
+    })
   }
 
 }
