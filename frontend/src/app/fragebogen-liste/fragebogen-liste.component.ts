@@ -39,6 +39,9 @@ export class FragebogenListeComponent implements OnInit {
           fragebogen.show = true
           this.fragebogenList.push(fragebogen)
         });
+      },
+      (error) => {
+        alert("Ein Fehler ist aufgetreten: " + error)
       })
     console.log(this.fragebogenList)
   }
@@ -95,6 +98,9 @@ export class FragebogenListeComponent implements OnInit {
         heuristikList.push(heuristik)
       });
       this.router.navigate(['/auswertung', fragebogenId], {state: {heuristikList}})
+    },
+    (error) => {
+      alert("Ein Fehler ist aufgetreten: " + error)
     })
   }
 
@@ -136,6 +142,9 @@ export class FragebogenListeComponent implements OnInit {
         heuristikList.push(heuristik)
       });
       this.router.navigate(['/frageboegen', fragebogenId], {state: {heuristikList}})
+    },
+    (error) => {
+      alert("Ein Fehler ist aufgetreten: " + error)
     })
   }
 

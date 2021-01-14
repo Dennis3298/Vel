@@ -55,7 +55,7 @@ export class FragebogenService {
           fragen: heuristik.fragen,
           titel: heuristik.titel
         }))
-    });
+    })
     return forkJoin(posts)
   }
 
@@ -67,7 +67,7 @@ export class FragebogenService {
     return this.webService.get('detailview/' + _heuristikId + '/' + _frageId)
   }
 
-  updateHeuristik(_heuristikId: string, _fragebogenId: string, _frageId: string, updateNotiz: string){
+  updateHeuristikNotiz(_heuristikId: string, _fragebogenId: string, _frageId: string, updateNotiz: string){
     let url = 'frageboegen/' + _fragebogenId + '/heuristiken/' + _heuristikId + '/' + _frageId
     console.log(url)
     return this.webService.patch(url, {
@@ -75,6 +75,19 @@ export class FragebogenService {
     } )
   }
 
+  updateHeuritik(heuristikList: Heuristik[]){
+    const updates = new Array
+    heuristikList.forEach(heuristik => {
+      let url = 'frageboegen/' + heuristik._fragebogenId.toString() + '/heuristiken/' + heuristik._heuristikId.toString()
+      updates.push(this.webService.patch(url, {
+        _heuristikId: heuristik._heuristikId,
+        _fragebogenId: heuristik._fragebogenId,
+        fragen: heuristik.fragen,
+        titel: heuristik.titel
+     }))
+   })
+   return forkJoin(updates)
+  }
   ///frageboegen/:fragebogenId/heuristiken/:heuristikId/:frageId'
 
 }

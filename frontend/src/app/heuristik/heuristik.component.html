@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <app-header-view></app-header-view>
+  <app-header-view [childMessage]="verteilungAntworten"></app-header-view>
   <div class="heuristikContainer">
     <div class="form-row">
       <div id="heuristik" class="container-fluid" *ngFor="let heuristik of heuristikList;let i = index">

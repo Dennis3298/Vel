@@ -37,7 +37,7 @@ export class DetailDialogComponent{
     let _frageId = this.data.details._frageId
     let _fragebogenId = this.data.details._fragebogenId
     if(!this.data.details.isFragebogen){
-      this.fragebogenService.updateHeuristik(_heuristikId, _fragebogenId, _frageId, notizen.value).subscribe()
+      this.fragebogenService.updateHeuristikNotiz(_heuristikId, _fragebogenId, _frageId, notizen.value).subscribe()
     }
     else{
       this.detailNotiz = notizen.value

@@ -58,7 +58,10 @@ export class FragebogenComponent implements OnInit {
       console.log('Länge:'+this.fragebogen.heuristiken.length)
 
       this.fragebogenService.createFragebogen(this.fragebogen)
-      .subscribe((fragebogen: Fragebogen) => this.router.navigate(['/frageboegen', fragebogen._id], {state: {fragebogen} }))
+      .subscribe((fragebogen: Fragebogen) => this.router.navigate(['/frageboegen', fragebogen._id], {state: {fragebogen} }),
+      (error) => {
+        alert("Ein Fehler ist aufgetreten: " + error)
+      })
   }
 
   checkForHeuristik(isHeuristik, heuristikId){

@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailDialogComponent } from './detail-dialog/detail-dialog.component';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import { FragebogenListeComponent } from './fragebogen-liste/fragebogen-liste.component';
+import { AntwortverteilungDialogComponent } from './antwortverteilung-dialog/antwortverteilung-dialog.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { FragebogenListeComponent } from './fragebogen-liste/fragebogen-liste.co
     AuswertungComponent,
     DetailDialogComponent,
     FragebogenListeComponent,
+    AntwortverteilungDialogComponent,
   ],
   imports: [
     BrowserModule,

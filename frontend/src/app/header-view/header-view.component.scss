@@ -1,10 +1,20 @@
 @import "../../../node_modules/bootstrap-scss/";
 
 .top-section{
-  min-height: 10vh;
+  min-height: 8vh;
   color:white;
 }
 
 .headline{
   margin: 15px;
 }
+
+li > a:hover{
+  background-color: rgb(103, 103, 107);
+}
+
+#brand{
+  font-size: 25px;
+}
+
+

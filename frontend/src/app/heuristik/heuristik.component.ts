@@ -29,6 +29,18 @@ export class HeuristikComponent implements OnInit {
   routeSub: Subscription
 
   isEdit: Boolean
+  lastUsedValue: Number
+
+  verteilungAntworten = [
+    { id: 1, count: 0},
+    { id: 2, count: 0},
+    { id: 3, count: 0},
+    { id: 4, count: 0},
+    { id: 5, count: 0},
+    { id: 6, count: 0},
+    { id: 7, count: 0},
+    { id: 8, count: 0}
+  ]
 
   constructor(
       private fragebogenService: FragebogenService,
@@ -84,9 +96,16 @@ export class HeuristikComponent implements OnInit {
               frage.antworten.forEach(antwort => {
                 //Für jede Antwort soll frage.anzahlAntwort einmal erhöht werden
                 frage.anzahlAntworten = new Array(frage.anzahlAntworten.length+1)
+                for(let i = 0; i < this.verteilungAntworten.length; i++){
+                  if(this.verteilungAntworten[i].id == antwort.wert){
+                    this.verteilungAntworten[i].count++
+                    break
+                  }
+                }
               });
             });
         });
+        console.log(this.verteilungAntworten)
       }
     }
 
@@ -142,21 +161,45 @@ export class HeuristikComponent implements OnInit {
     console.log(this.heuristikList)
     console.log(this.fragebogenId)
     if(this.isEdit){
-        this.fragebogenService.deleteHeuristiken(this.fragebogenId).subscribe()
+      this.fragebogenService.updateHeuritik(this.heuristikList).subscribe(
+        (heuristikList: Heuristik[]) => {
+          heuristikList = this.heuristikList
+          console.log(heuristikList)
+          this.router.navigate(['/auswertung', this.fragebogenId], {state: {heuristikList}}
+        )},
+        (error) => {
+          alert("Ein Fehler ist aufgetreten: " + error)
+        })
+    }else{
+      this.fragebogenService.createHeuristik(this.heuristikList, this.fragebogenId).subscribe(
+        (heuristikList: Heuristik[]) => {
+          heuristikList = this.heuristikList
+          this.router.navigate(['/auswertung', this.fragebogenId], {state: {heuristikList}}
+        )},
+        (error) => {
+          alert("Ein Fehler ist aufgetreten: " + error)
+        })
     }
-
-    this.fragebogenService.createHeuristik(this.heuristikList, this.fragebogenId).subscribe(
-      (heuristikList: Heuristik[]) => {
-        heuristikList = this.heuristikList
-        this.router.navigate(['/auswertung', this.fragebogenId], {state: {heuristikList}}
-      )})
   }
 
   onRadiobuttonClick(wert: number, _antwortId: string, frage: Frage){
    let found = false;
    for(let i = 0; i < frage.antworten.length; i++) {
     if (frage.antworten[i]._antwortId == _antwortId) {
+        this.lastUsedValue = frage.antworten[i].wert
         frage.antworten[i].wert = wert
+        for(let j=0; j< this.verteilungAntworten.length; j++){
+          if(this.verteilungAntworten[j].id == wert){
+            this.verteilungAntworten[j].count++
+            for(let k=0; k<this.verteilungAntworten.length; k++){
+              if(this.verteilungAntworten[k].id == this.lastUsedValue){
+                this.verteilungAntworten[k].count--
+                break
+              }
+            }
+            break;
+          }
+        }
         if(frage.antworten[i].beschreibung == "Standardbeschreibung" && Number(_antwortId) != 0){
             frage.antworten[i].beschreibung == "Zusatzskala: " + _antwortId
         }
@@ -168,9 +211,17 @@ export class HeuristikComponent implements OnInit {
       this.frageAntwort = new Antwort
       this.frageAntwort._antwortId = _antwortId
       this.frageAntwort.wert = wert
+      for(let i=0; i< this.verteilungAntworten.length; i++){
+        if(this.verteilungAntworten[i].id == wert){
+          this.verteilungAntworten[i].count++
+          this.lastUsedValue = wert
+          break;
+        }
+      }
       if(Number(_antwortId) != 0) this.frageAntwort.beschreibung = "Zusatzskala: " + _antwortId
       frage.antworten.push(this.frageAntwort)
     }
+    console.log(this.verteilungAntworten)
   }
 
   onTableRemoveClick(frage: Frage){

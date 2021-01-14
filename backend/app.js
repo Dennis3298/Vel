@@ -93,7 +93,7 @@ app.get('/frageboegen/:fragebogenId/heuristiken', (req, res) => {
 
 //Neue Heuristik zu Fragebogen hinzufügen
 app.post('/frageboegen/:fragebogenId/heuristiken', (req, res) => {
-    (
+    (   
         new Heuristik({
         '_heuristikId': req.body._heuristikId,
         '_fragebogenId': req.params.fragebogenId,
@@ -147,6 +147,18 @@ app.patch('/frageboegen/:fragebogenId/heuristiken/:heuristikId/:frageId', (req, 
     })
         .then(heuristik => res.send(heuristik))
         .catch((error) => console.log(error))
+})
+
+app.patch('/frageboegen/:fragebogenId/heuristiken/:heuristikId', (req, res) => {
+    console.log("Let's go")
+    Heuristik.updateOne({
+        '_fragebogenId' : req.params.fragebogenId,
+        '_heuristikId': req.params.heuristikId,
+    }, {
+        '$set' : {'fragen': req.body.fragen}
+    })   
+    .then(heuristik => res.send(heuristik))
+    .catch((error) => console.log(error))
 })
 
 /**************************************************/
