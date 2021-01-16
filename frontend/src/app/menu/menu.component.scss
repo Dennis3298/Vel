@@ -16,6 +16,7 @@
   border-style: solid;
   background: rgb(255, 255, 255, 0.9);
   margin: 10px;
+  min-height: 45vh;
 }
 
 .description{
@@ -25,6 +26,14 @@
 @media only screen and (max-width: 1200px) {
   #sideText {
     max-height: 85vh;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  #sideText {
+    max-height: 80vh;
+  }
+  #midCol{
+    max-height: 80vh;
   }
 }
 @media only screen and (max-width: 600px) {

@@ -5,5 +5,6 @@ export default class Antwort{
 
   constructor(){
     this.beschreibung = "Standardantwort"
+    this.wert = 0
   }
 }

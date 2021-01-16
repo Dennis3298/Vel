@@ -1,7 +1,7 @@
 @import "../../../node_modules/bootstrap-scss/";
 
 .top-section{
-  min-height: 8vh;
+  min-height: 7vh;
   color:white;
 }
 
@@ -11,10 +11,15 @@
 
 li > a:hover{
   background-color: rgb(103, 103, 107);
+  cursor: pointer;
 }
 
 #brand{
   font-size: 25px;
+}
+
+#verteilungAntworten{
+  color: rgba($color: #eeff00ce, $alpha: 1.0)
 }
 
 
