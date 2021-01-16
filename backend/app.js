@@ -178,4 +178,4 @@ app.get('/detailview/:_heuristikId/:_frageId', (req, res) => {
 // In Etwa: find => Beartbeiten => Update (Zusatzanforderung: Bearbeiten von alten Bögen)
 
 const port = process.env.PORT || 8080
-app.listen(3000, () => console.log("Server is connected on port 3000"))
+app.listen(port, () => console.log("Server is connected on port 3000"))
