@@ -3,7 +3,7 @@ const app = express()
 const mongoose = require('./database/mongoose')
 
 const Fragebogen = require('./database/models/fragebogen')
-const Heuristik = require('./database/models/heuristik')
+const HeuristikTest = require('./database/models/heuristikTest')
 const Detailview = require('./database/models/detailview')
 
 app.use(express.json())
@@ -66,7 +66,7 @@ app.patch('/frageboegen/:fragebogenId', (req, res) => {
 //Einen Fragebogen nach ID löschen
 app.delete('/frageboegen/:fragebogenId', (req, res) => {
     const deleteHeuristiken = (fragebogen) => {
-        Heuristik.deleteMany({_fragebogenId: fragebogen._id})
+        HeuristikTest.deleteMany({_fragebogenId: fragebogen._id})
             .then(() => fragebogen)
             .catch((error) => console.log(error))
     }
@@ -79,22 +79,27 @@ app.delete('/frageboegen/:fragebogenId', (req, res) => {
 /******************************************************/
 
 
-/******************Heuristik***********************/
+/******************HeuristikTest***********************/
 
 
 // PFAD: http://localhost:3000/frageboegen/:fragebogenId/heuristiken/:heuristikId
 
 //Alle assozierten Heuristik-Objekte finden
 app.get('/frageboegen/:fragebogenId/heuristiken', (req, res) => {
-    Heuristik.find({_fragebogenId: req.params.fragebogenId})
+    HeuristikTest.find({_fragebogenId: req.params.fragebogenId})
         .then(heuristiken => res.send(heuristiken))
         .catch((error) => console.log(error))
 })
 
 //Neue Heuristik zu Fragebogen hinzufügen
 app.post('/frageboegen/:fragebogenId/heuristiken', (req, res) => {
+<<<<<<< HEAD
     (   
         new Heuristik({
+=======
+    (
+        new HeuristikTest({
+>>>>>>> parent of ac2c09e (Namensänderungen von Heuristik-Schema)
         '_heuristikId': req.body._heuristikId,
         '_fragebogenId': req.params.fragebogenId,
         'fragen': req.body.fragen,
@@ -116,7 +121,7 @@ app.delete('/frageboegen/:fragebogenId/heuristiken', (req, res) =>{
 
 //Bestimmte Heuristik nach ID finden
 app.get('/frageboegen/:fragebogenId/heuristiken/:heuristikId', (req,res) => {
-    Heuristik.find({ _heuristikId: req.params.heuristikId})
+    HeuristikTest.find({ _heuristikId: req.params.heuristikId})
         .then(heuristik => res.send(heuristik))
         .catch((error) => console.log(error))
 })
@@ -124,7 +129,7 @@ app.get('/frageboegen/:fragebogenId/heuristiken/:heuristikId', (req,res) => {
 
 //Bestimmte Heuristik nach ID löschen
 app.delete('/frageboegen/:fragebogenId/heuristiken/:heuristikId', (req, res) => {
-    Heuristik.findByIdAndDelete(req.params.heuristikId)
+    HeuristikTest.findByIdAndDelete(req.params.heuristikId)
         .then(heuristiken => res.send(heuristiken))
         .catch((error) => console.log(error))
 })
@@ -135,7 +140,7 @@ app.patch('/frageboegen/:fragebogenId/heuristiken/:heuristikId/:frageId', (req, 
     console.log(req.params.heuristikId)
     console.log(req.params.fragebogenId)
     console.log(req.body)
-    Heuristik.updateOne({
+    HeuristikTest.updateOne({
         '_fragebogenId' : req.params.fragebogenId,
         '_heuristikId': req.params.heuristikId
     }, {
